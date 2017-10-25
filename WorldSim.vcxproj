@@ -144,12 +144,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Events.h" />
+    <ClInclude Include="include\UserInput.h" />
     <ClInclude Include="include\World.h" />
-    <ClInclude Include="include\WorldSimDLL.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Events.cpp" />
     <ClCompile Include="src\World.cpp" />
-    <ClCompile Include="src\WorldSimDLL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\common\Common.vcxproj">
