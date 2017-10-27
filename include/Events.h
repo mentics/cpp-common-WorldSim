@@ -11,9 +11,7 @@ public:
 	EventAcc(TimeType timeToRun, vect3 dir) : Event(timeToRun), dir(dir) {
 	};
 
-	void run(sched::Schedulator<TimeType>* sched) {
-
-	}
+	void run(sched::Schedulator<TimeType>* sched);
 
 private:
 	vect3 dir;

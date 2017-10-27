@@ -144,12 +144,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Agent.h" />
     <ClInclude Include="include\Events.h" />
+    <ClInclude Include="include\Events.hpp" />
+    <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\UserInput.h" />
+    <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\UserInput.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
     <ClInclude Include="include\World.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Events.cpp" />
     <ClCompile Include="src\World.cpp" />
   </ItemGroup>
   <ItemGroup>

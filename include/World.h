@@ -3,6 +3,7 @@
 #include "MenticsCommon.h"
 #include "Agent.h"
 #include "Scheduler.h"
+#include "Model.h"
 
 namespace sched = mentics::scheduler;
 namespace cmn = mentics::common;
@@ -12,7 +13,7 @@ typedef uint64_t RealTime; // nanoseconds
 struct RealTimeProvider : public sched::SchedulerTimeProvider<RealTime> {
 	RealTime max = 2000000000;
 	RealTime lastChange = 0;
-	double timeScale = 1;
+	double timeScale = 0; // Always start paused
 
 	virtual RealTime now() {
 		return cmn::currentTimeNanos();
@@ -27,34 +28,41 @@ struct RealTimeProvider : public sched::SchedulerTimeProvider<RealTime> {
 			return sched::FOREVER<RealTime>();
 		}
 		RealTime now = cmn::currentTimeNanos();
-		return (RealTime)((t - now) / timeScale);
+		return trunc((t - now) / timeScale);
 	}
 };
 
-template <typename TimeType>
 class World {
 public:
-	World(TimeType userInputDelay) : userInputDelay(userInputDelay), timeProvider(),
-		model("SchedulerModel"), sched("Scheduler", &model, &timeProvider) {
+	World(RealTime userInputDelay) : userInputDelay(userInputDelay), timeProvider(),
+		schedModel("SchedulerModel"), sched("Scheduler", &schedModel, &timeProvider), model() {
 	}
 
-	AgentId createPlayerInput();
+	void setTimeScale(double newTimeScale) {
+		timeProvider.timeScale = newTimeScale;
+		sched.wakeUp();
+	}
 
-	TimeType userInputTimeToRun() {
+	nn::nn<Agent*> createPlayer();
+
+	RealTime userInputTimeToRun() {
 		return timeProvider.now() + userInputDelay;
 	}
 
-	void addEvent(sched::Event<TimeType>* ev) {
+	void addEvent(sched::Event<RealTime>* ev) {
 		sched.schedule(ev);
 	}
 
+	AgentIndex allAgentsData(gsl::span<AgentPosVelAcc> buffer);
+
 private:
-	TimeType userInputDelay;
+	RealTime userInputDelay;
 	RealTimeProvider timeProvider;
-	sched::SchedulerModel<RealTime> model;
+	sched::SchedulerModel<RealTime> schedModel;
 	sched::Scheduler<RealTime> sched;
+	Model model;
 };
 
 // TODO: export in dll
-World<RealTime>* startWorld();
-AgentId createPlayerInput(World<RealTime>* world);
+//World<RealTime>* startWorld();
+//AgentId createPlayerInput(World<RealTime>* world);
