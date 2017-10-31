@@ -5,8 +5,6 @@
 #include "Events.h"
 #include "World.h"
 
-using namespace mentics::scheduler;
-
 class UserInput {
 public:
 	UserInput(const AgentId agentId, const SchedulerPtr<RealTime,WorldModel> sched, const RealTimeProviderPtr timeProv, RealTime inputTimeDelay)

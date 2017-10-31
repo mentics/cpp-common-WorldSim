@@ -8,18 +8,18 @@
 
 typedef uint64_t RealTime; // nanoseconds
 
-//using SchedPtr = sched::Scheduler<RealTime>*;
-//using SchedPtr = nn::nn<sched::Scheduler<RealTime>*>;
+//using SchedPtr = Scheduler<RealTime>*;
+//using SchedPtr = nn::nn<Scheduler<RealTime>*>;
 
 class UserInput;
 
-struct RealTimeProvider : public sched::SchedulerTimeProvider<RealTime> {
+struct RealTimeProvider : public SchedulerTimeProvider<RealTime> {
 	RealTime max = 2000000000;
 	RealTime lastChange = 0;
 	double timeScale = 0; // Always start paused
 
 	virtual RealTime now() {
-		return cmn::currentTimeNanos();
+		return currentTimeNanos();
 	}
 
 	inline RealTime maxTimeAhead() {
@@ -30,7 +30,7 @@ struct RealTimeProvider : public sched::SchedulerTimeProvider<RealTime> {
 		if (timeScale == 0) {
 			return FOREVER;
 		}
-		RealTime now = cmn::currentTimeNanos();
+		RealTime now = currentTimeNanos();
 		return trunc((t - now) / timeScale);
 	}
 };
@@ -58,7 +58,7 @@ public:
 private:
 	RealTime userInputDelay;
 	RealTimeProvider timeProv;
-	sched::SchedulerModel<RealTime,WorldModel> schedModel;
-	sched::Scheduler<RealTime,WorldModel> sched;
+	SchedulerModel<RealTime,WorldModel> schedModel;
+	Scheduler<RealTime,WorldModel> sched;
 	WorldModel model;
 };
