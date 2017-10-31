@@ -2,7 +2,6 @@
 #include <gsl/gsl>
 #include "World.h"
 #include "UserInput.h"
-#include "Events.hpp" // This should be the only place that includes this
 #include "Scheduler.hpp" // This should be the only place that includes this
 
 //World<RealTime>* theWorld;
@@ -23,7 +22,7 @@ AgentIndex World::allAgentsData(gsl::span<AgentPosVelAcc> buffer) {
 }
 
 UserInput World::createPlayerInput() {
-	AgentPtr agent = model.createAgent();
-	UserInput input(agent->id, nn::nn_addr(sched), nn::nn_addr(timeProv), userInputDelay);
+	AgentId agentId = model.createAgent();
+	UserInput input(agentId, nn::nn_addr(sched), nn::nn_addr(timeProv), userInputDelay);
 	return input;
 }

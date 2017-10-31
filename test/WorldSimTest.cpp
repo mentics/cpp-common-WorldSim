@@ -9,7 +9,7 @@
 #include "Scheduler.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
+using namespace std::chrono_literals;
 const double EXACT_EPS = 1E-18;
 
 namespace WorldSimTest {
@@ -92,6 +92,13 @@ namespace WorldSimTest {
 			setupLog();
 		}
 
+		TEST_METHOD(TestSharedPtr) {
+			std::shared_ptr<int> p1 = std::make_shared<int>(10);
+			std::shared_ptr<int> p2 = p1;
+			Assert::AreEqual(10, *p1);
+			Assert::AreEqual(10, *p2);
+		}
+
 		TEST_METHOD(TestEmplace) {
 			//testEmplace();
 			testDeque();
@@ -124,6 +131,8 @@ namespace WorldSimTest {
 
 			const vect3 dir(1,1,1);
 			player.tempAcc(dir);
+			// TODO: add a "wait until processed" thing
+			std::this_thread::sleep_for(50ms);
 
 			num = world.allAgentsData(agentsData);
 			Assert::AreEqual(1, (int)num);

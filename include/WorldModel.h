@@ -2,17 +2,34 @@
 #include "MenticsCommon.h"
 #include "Agent.h"
 
+typedef uint64_t RealTime; // nanoseconds
+
+class WorldModel;
+PTRS(WorldModel)
+
+struct Change {
+	Change(RealTime at) : at(at) {}
+
+	virtual void apply(WorldModelPtr model) = 0;
+
+	RealTime at;
+};
+PTRS(Change)
+
 class WorldModel {
 public:
-	AgentPtr createAgent() {
-		agents.emplace_back(agents.size(),
-			uniquePtr<BasicTrajectory>(0.0, 1.0E31, VZERO, VZERO, VZERO),
-			uniquePtr<BasicTrajectory>(0.0, 1.0E31, VZERO, VZERO, VZERO));
-		// TODO: this is a problem if we use std::vector because the pointer could point to something else later after erase/emplace's
-		return NN_CHECK_ASSERT(&agents.back());
+	AgentId createAgent() {
+		agents.emplace_back(agents.size(), makeTrajZero(), makeTrajZero());
+		return agents.back().id;
 	}
 
 	void forAllAgents(AgentIndex max, std::function<void(const Agent&)> handler);
+
+	Agent* agent(AgentId id) {
+		return &agents[id];
+	}
+
+	void change(ChangeUniquePtr c);
 
 private:
 	std::vector<Agent> agents;

@@ -6,32 +6,32 @@
 #include "WorldModel.h"
 
 
-typedef uint64_t RealTime; // nanoseconds
-
 //using SchedPtr = Scheduler<RealTime>*;
 //using SchedPtr = nn::nn<Scheduler<RealTime>*>;
 
 class UserInput;
 
 struct RealTimeProvider : public SchedulerTimeProvider<RealTime> {
-	RealTime max = 2000000000;
+	RealTime max = 2000000000000;
 	RealTime lastChange = 0;
 	double timeScale = 0; // Always start paused
 
-	virtual RealTime now() {
-		return currentTimeNanos();
+	RealTime now() {
+		RealTime nanos = currentTimeNanos();
+		RealTime millis = currentTimeMillis();
+		return nanos;
 	}
 
 	inline RealTime maxTimeAhead() {
 		return max;
 	}
 
-	inline RealTime realTimeUntil(RealTime t) {
+	inline chrono::nanoseconds realTimeUntil(RealTime t) {
 		if (timeScale == 0) {
-			return FOREVER;
+			return chrono::nanoseconds((RealTime)FOREVER);
 		}
 		RealTime now = currentTimeNanos();
-		return trunc((t - now) / timeScale);
+		return chrono::nanoseconds((RealTime)trunc((t - now) / timeScale));
 	}
 };
 PTRS(RealTimeProvider)

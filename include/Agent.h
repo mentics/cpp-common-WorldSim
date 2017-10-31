@@ -15,12 +15,11 @@ struct AgentPosVelAcc {
 };
 
 struct Agent {
-	Agent(const AgentId id, TrajectoryUniquePtr trajectory, TrajectoryUniquePtr visibleTrajectory)
-		: id(id), trajectory(std::move(trajectory)), visibleTrajectory(std::move(visibleTrajectory)) {}
+	Agent(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory)
+		: id(id), trajectory(trajectory), visibleTrajectory(visibleTrajectory) {}
 
 	const AgentId id;
-	TrajectoryUniquePtr trajectory;
-	TrajectoryUniquePtr visibleTrajectory;
+	nn::nn_shared_ptr<Trajectory> trajectory;
+	nn::nn_shared_ptr<Trajectory> visibleTrajectory;
 };
-
-using AgentPtr = nn::nn<Agent*>;
+PTRS(Agent)
