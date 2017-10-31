@@ -165,15 +165,6 @@
     <ProjectReference Include="..\math\Math.vcxproj">
       <Project>{8bf9d5da-2a1e-4817-8604-3aa7801ffa1f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\multiplayer\Multiplayer.vcxproj">
-      <Project>{19111916-4963-4fc8-b72e-8f10e410e195}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\network\client\Client.vcxproj">
-      <Project>{b0996450-991e-4f96-ba33-fc948fd90a78}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\network\server\Server.vcxproj">
-      <Project>{af2e4241-249e-4938-ad5a-8b47836dd704}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\physics\Physics.vcxproj">
       <Project>{4401d5e5-71f8-4b1f-9077-4182a339ca2f}</Project>
     </ProjectReference>

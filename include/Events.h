@@ -1,18 +1,19 @@
 #pragma once
 
 #include "MenticsMath.h"
+#include "Agent.h"
 #include "Scheduler.h"
 
-namespace sched = mentics::scheduler;
 
 template <typename TimeType>
 class EventAcc : public sched::Event<TimeType> {
 public:
-	EventAcc(TimeType timeToRun, vect3 dir) : Event(timeToRun), dir(dir) {
+	EventAcc(const TimeType created, const TimeType timeToRun, const AgentId agentId, const vect3 dir) : Event(created, timeToRun), agentId(agentId), dir(dir) {
 	};
 
 	void run(sched::Schedulator<TimeType>* sched);
 
 private:
-	vect3 dir;
+	const AgentId agentId;
+	const vect3 dir;
 };

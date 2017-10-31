@@ -5,10 +5,12 @@
 #include "Scheduler.h"
 #include "Model.h"
 
-namespace sched = mentics::scheduler;
-namespace cmn = mentics::common;
 
 typedef uint64_t RealTime; // nanoseconds
+using SchedPtr = sched::Scheduler<RealTime>*;
+//using SchedPtr = nn::nn<sched::Scheduler<RealTime>*>;
+
+class UserInput;
 
 struct RealTimeProvider : public sched::SchedulerTimeProvider<RealTime> {
 	RealTime max = 2000000000;
@@ -31,38 +33,32 @@ struct RealTimeProvider : public sched::SchedulerTimeProvider<RealTime> {
 		return trunc((t - now) / timeScale);
 	}
 };
+using RealTimeProvPtr = RealTimeProvider*;
+//using RealTimeProvPtr = nn::nn<RealTimeProvider*>;
 
 class World {
 public:
-	World(RealTime userInputDelay) : userInputDelay(userInputDelay), timeProvider(),
-		schedModel("SchedulerModel"), sched("Scheduler", &schedModel, &timeProvider), model() {
+	World(RealTime userInputDelay) : userInputDelay(userInputDelay), timeProv(),
+		schedModel("SchedulerModel"), sched("Scheduler", &schedModel, &timeProv), model() {
 	}
 
 	void setTimeScale(double newTimeScale) {
-		timeProvider.timeScale = newTimeScale;
+		timeProv.timeScale = newTimeScale;
 		sched.wakeUp();
 	}
 
-	nn::nn<Agent*> createPlayer();
+	UserInput createPlayerInput();
 
 	RealTime userInputTimeToRun() {
-		return timeProvider.now() + userInputDelay;
-	}
-
-	void addEvent(sched::Event<RealTime>* ev) {
-		sched.schedule(ev);
+		return timeProv.now() + userInputDelay;
 	}
 
 	AgentIndex allAgentsData(gsl::span<AgentPosVelAcc> buffer);
 
 private:
 	RealTime userInputDelay;
-	RealTimeProvider timeProvider;
+	RealTimeProvider timeProv;
 	sched::SchedulerModel<RealTime> schedModel;
 	sched::Scheduler<RealTime> sched;
 	Model model;
 };
-
-// TODO: export in dll
-//World<RealTime>* startWorld();
-//AgentId createPlayerInput(World<RealTime>* world);

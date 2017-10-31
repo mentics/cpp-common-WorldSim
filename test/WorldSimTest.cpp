@@ -12,25 +12,77 @@ const double EXACT_EPS = 1E-18;
 
 namespace WorldSimTest {
 
-	class Something {};
+	//Assert::IsTrue(std::is_copy_assignable<std::unique_ptr<MyStruct>>::value);
+	//Assert::IsTrue(std::is_copy_constructible<std::unique_ptr<MyStruct>>::value);
+	//Assert::IsTrue(!std::is_destructible<std::unique_ptr<MyStruct>>::value);
+
+	struct Something {
+		int val = 2;
+	};
+
+
+	struct MyStruct {
+		int val = 2;
+
+		MyStruct(const int val) : val(val) {}
+	};
+
+	void testDeque() {
+		{ // This block compiles fine.
+			std::deque<std::unique_ptr<MyStruct>> q1;
+			q1.emplace_back(std::make_unique<MyStruct>(10));
+
+			std::deque<std::unique_ptr<MyStruct>> q2;
+			q2.push_back(std::move(q1.front()));
+			q1.pop_back();
+		}
+
+		{ // This block won't compile because of q1.top()
+			std::priority_queue<std::unique_ptr<MyStruct>> q1;
+			q1.emplace(std::make_unique<MyStruct>(10));
+			std::deque<std::unique_ptr<MyStruct>> q2;
+			// How can I "peek" at the value at q1.top() without taking ownership of the unique_ptr?
+			MyStruct* nonOwnershipPtr = q1.top().get();
+			Assert::AreEqual(10, nonOwnershipPtr->val);
+			//q2.push_back(std::move(q1.top()));// <- compiler error
+			//q1.pop();
+		}
+
+		{
+			std::priority_queue<std::unique_ptr<MyStruct>, std::deque<std::unique_ptr<MyStruct>>> q1;
+			q1.emplace(std::make_unique<MyStruct>(10));
+			std::deque<std::unique_ptr<MyStruct>> q2;
+			//q2.push_back(std::unique_ptr<MyStruct>(q1.top().get()));
+			//q2.push_back(q1.top()); // <- compiler error "attempting to reference a deleted function"
+			q2.push_back(std::move(const_cast<std::unique_ptr<MyStruct>&>(q1.top()))); // <- compiler error "attempting to reference a deleted function"
+			q1.pop();
+			Assert::AreEqual(10, q2.back()->val);
+		}
+	}
+
+	//std::priority_queue<std::unique_ptr<MyStruct>, std::vector<std::unique_ptr<MyStruct>>> q1;
 
 	//struct TestUniquePtr {
 	//	TestUniquePtr(nn::nn<std::unique_ptr<Something>> theValue) : value(std::move(theValue)) {}
 	//	nn::nn<std::unique_ptr<Something>> value;
 	//};
 
-	struct TestUniquePtr {
-		TestUniquePtr(nn::nn<std::unique_ptr<Something>> theValue) : value(std::move(theValue)) {}
-		nn::nn<std::unique_ptr<Something>> value;
-	};
+	//struct TestUniquePtr {
+	//	TestUniquePtr(nn::nn<std::unique_ptr<Something>> theValue) : value(std::move(theValue)) {}
+	//	nn::nn<std::unique_ptr<Something>> value;
+	//};
 
-	void testEmplace() {
-		std::vector<TestUniquePtr> v;
-		//v.emplace_back(nullptr);
-		//v.emplace_back(std::move(std::make_unique<Something>()));
-		v.emplace_back(nn::nn_make_unique<Something>());
-		//TestUniquePtr test(nullptr);
-	}
+	//void testEmplace() {
+	//	std::vector<TestUniquePtr> v;
+	//	//v.emplace_back(nullptr); // <- compile error
+	//	//v.emplace_back(std::move(std::make_unique<Something>())); // <- compile error
+	//	v.emplace_back(uniquePtr<Something>());
+
+	//	nn::nn<std::unique_ptr<Something>> ptr = nn::nn_make_unique<Something>();
+	//	v.emplace_back(std::move(ptr));
+	//	//Assert::AreEqual(2, ptr->val); <- NPE
+	//	//TestUniquePtr test(nullptr); <- compile error
+	//}
 
 	TEST_CLASS(WorldSimTest) {
 	public:
@@ -39,7 +91,8 @@ namespace WorldSimTest {
 		}
 
 		TEST_METHOD(TestEmplace) {
-			testEmplace();
+			//testEmplace();
+			testDeque();
 		}
 
 		TEST_METHOD(TestPointerThing) {
@@ -57,7 +110,7 @@ namespace WorldSimTest {
 
 		TEST_METHOD(TestWorld) {
 			World world(100000000);
-			Agent* player = world.createPlayer();
+			UserInput player = world.createPlayerInput();
 			world.setTimeScale(1);
 
 			AgentPosVelAcc agentsData[10];
@@ -68,6 +121,7 @@ namespace WorldSimTest {
 			Assert::IsTrue(agentsData[0].pva.acc.isZero());
 
 			const double dir[] = { 1,1,1 };
+
 
 			num = world.allAgentsData(agentsData);
 			Assert::AreEqual(1, (int)num);

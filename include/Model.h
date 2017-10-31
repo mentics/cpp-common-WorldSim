@@ -4,11 +4,11 @@
 
 class Model {
 public:
-	nn::nn<Agent*> createAgent() {
+	AgentPtr createAgent() {
 		agents.emplace_back(agents.size(),
-			nn::nn_make_unique<BasicTrajectory>(0.0, 1.0E31, VZERO, VZERO, VZERO),
-			nn::nn_make_unique<BasicTrajectory>(0.0, 1.0E31, VZERO, VZERO, VZERO));
-		// TODO: this is a problem if we use std::vectory because the pointer could point to something else later after erase/emplace's
+			uniquePtr<BasicTrajectory>(0.0, 1.0E31, VZERO, VZERO, VZERO),
+			uniquePtr<BasicTrajectory>(0.0, 1.0E31, VZERO, VZERO, VZERO));
+		// TODO: this is a problem if we use std::vector because the pointer could point to something else later after erase/emplace's
 		return NN_CHECK_ASSERT(&agents.back());
 	}
 
