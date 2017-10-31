@@ -147,9 +147,9 @@
     <ClInclude Include="include\Agent.h" />
     <ClInclude Include="include\Events.h" />
     <ClInclude Include="include\Events.hpp" />
-    <ClInclude Include="include\Model.h" />
+    <ClInclude Include="include\WorldModel.h" />
     <ClInclude Include="include\UserInput.h" />
-    <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\WorldModel.cpp" />
     <ClCompile Include="src\UserInput.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>

@@ -2,7 +2,8 @@
 #include <gsl/gsl>
 #include "World.h"
 #include "UserInput.h"
-#include "Events.hpp"
+#include "Events.hpp" // This should be the only place that includes this
+#include "Scheduler.hpp" // This should be the only place that includes this
 
 //World<RealTime>* theWorld;
 //

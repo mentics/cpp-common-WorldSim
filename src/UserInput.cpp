@@ -2,14 +2,7 @@
 #include "Events.hpp" // Only place this should be included
 #include "UserInput.h"
 
-//double* allAgentsPosVelAcc(World<RealTime>* world, int* count) {
-//	return world->allAgentsPosVelAcc()
-//}
-//
-//void setTimeScale(World<RealTime>* world, double newTimeScale) {
-//	world->setTimeScale(newTimeScale);
-//}
-//
-//void tempAcc(World<RealTime>* world, AgentId agentId, const double dir[3]) {
-//	world->addEvent(new EventAcc<RealTime>(world->userInputTimeToRun(), vect3(dir)));
-//}
+void UserInput::tempAcc(const vect3& dir) {
+	RealTime now = timeProv->now();
+	sched->schedule(uniquePtr<EventAcc<RealTime,WorldModel>>(now, now + inputTimeDelay, agentId, dir));
+}

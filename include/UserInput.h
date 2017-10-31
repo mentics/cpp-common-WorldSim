@@ -5,24 +5,23 @@
 #include "Events.h"
 #include "World.h"
 
+using namespace mentics::scheduler;
+
 class UserInput {
 public:
-	UserInput(const AgentId agentId, const SchedPtr sched, const RealTimeProvPtr timeProv, RealTime inputTimeDelay)
+	UserInput(const AgentId agentId, const SchedulerPtr<RealTime,WorldModel> sched, const RealTimeProviderPtr timeProv, RealTime inputTimeDelay)
 		: agentId(agentId), sched(sched), timeProv(timeProv), inputTimeDelay(inputTimeDelay) {}
 
 	void setTimeScale(double newTimeScale) {
 		timeProv->timeScale = newTimeScale;
 	}
 
-	void tempAcc(const vect3& dir) {
-		RealTime now = timeProv->now();
-		sched->schedule(uniquePtr<EventAcc<RealTime>>(now, now + inputTimeDelay, agentId, dir));
-	}
+	void tempAcc(const vect3& dir);
 
 private:
 	const AgentId agentId;
-	const SchedPtr sched;
-	const RealTimeProvPtr timeProv;
+	const SchedulerPtr<RealTime, WorldModel> sched;
+	const RealTimeProviderPtr timeProv;
 	RealTime inputTimeDelay;
 };
 

@@ -2,7 +2,7 @@
 #include "MenticsCommon.h"
 #include "Agent.h"
 
-class Model {
+class WorldModel {
 public:
 	AgentPtr createAgent() {
 		agents.emplace_back(agents.size(),

@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "Model.h"
+#include "WorldModel.h"
 
-void Model::forAllAgents(AgentIndex max, std::function<void(const Agent&)> handler) {
+void WorldModel::forAllAgents(AgentIndex max, std::function<void(const Agent&)> handler) {
 	if (agents.size() > max) {
 		throw "Insufficient buffer size";
 	}

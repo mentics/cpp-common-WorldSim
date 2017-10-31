@@ -3,11 +3,12 @@
 #include "MenticsCommon.h"
 #include "Agent.h"
 #include "Scheduler.h"
-#include "Model.h"
+#include "WorldModel.h"
 
 
 typedef uint64_t RealTime; // nanoseconds
-using SchedPtr = sched::Scheduler<RealTime>*;
+
+//using SchedPtr = sched::Scheduler<RealTime>*;
 //using SchedPtr = nn::nn<sched::Scheduler<RealTime>*>;
 
 class UserInput;
@@ -27,19 +28,18 @@ struct RealTimeProvider : public sched::SchedulerTimeProvider<RealTime> {
 
 	inline RealTime realTimeUntil(RealTime t) {
 		if (timeScale == 0) {
-			return sched::FOREVER<RealTime>();
+			return FOREVER;
 		}
 		RealTime now = cmn::currentTimeNanos();
 		return trunc((t - now) / timeScale);
 	}
 };
-using RealTimeProvPtr = RealTimeProvider*;
-//using RealTimeProvPtr = nn::nn<RealTimeProvider*>;
+PTRS(RealTimeProvider)
 
 class World {
 public:
 	World(RealTime userInputDelay) : userInputDelay(userInputDelay), timeProv(),
-		schedModel("SchedulerModel"), sched("Scheduler", &schedModel, &timeProv), model() {
+		model(), schedModel("SchedulerModel"), sched("Scheduler", nn::nn_addr(schedModel), nn::nn_addr(timeProv), nn::nn_addr(model)) {
 	}
 
 	void setTimeScale(double newTimeScale) {
@@ -58,7 +58,7 @@ public:
 private:
 	RealTime userInputDelay;
 	RealTimeProvider timeProv;
-	sched::SchedulerModel<RealTime> schedModel;
-	sched::Scheduler<RealTime> sched;
-	Model model;
+	sched::SchedulerModel<RealTime,WorldModel> schedModel;
+	sched::Scheduler<RealTime,WorldModel> sched;
+	WorldModel model;
 };

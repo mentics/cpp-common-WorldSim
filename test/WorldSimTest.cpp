@@ -6,6 +6,8 @@
 
 #include "MenticsCommonTest.h"
 
+#include "Scheduler.hpp"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 const double EXACT_EPS = 1E-18;
@@ -120,8 +122,8 @@ namespace WorldSimTest {
 			Assert::IsTrue(agentsData[0].pva.vel.isZero());
 			Assert::IsTrue(agentsData[0].pva.acc.isZero());
 
-			const double dir[] = { 1,1,1 };
-
+			const vect3 dir(1,1,1);
+			player.tempAcc(dir);
 
 			num = world.allAgentsData(agentsData);
 			Assert::AreEqual(1, (int)num);
