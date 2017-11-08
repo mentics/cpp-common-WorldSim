@@ -31,6 +31,8 @@ public:
 
 	void change(ChangeUniquePtr c);
 
+	void reset(RealTime resetToTime);
+
 private:
 	std::vector<Agent> agents;
 };

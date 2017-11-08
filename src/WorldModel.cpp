@@ -10,8 +10,11 @@ void WorldModel::forAllAgents(AgentIndex max, std::function<void(const Agent&)> 
 	}
 }
 
-
 void WorldModel::change(ChangeUniquePtr c) {
 	// TODO: store change
 	c->apply(nn::nn_addr(*this));
+}
+
+void WorldModel::reset(RealTime resetToTime) {
+	// TODO: impl
 }

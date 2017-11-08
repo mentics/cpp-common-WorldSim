@@ -132,7 +132,7 @@ namespace WorldSimTest {
 			const vect3 dir(1,1,1);
 			player.tempAcc(dir);
 			// TODO: add a "wait until processed" thing
-			std::this_thread::sleep_for(50ms);
+			std::this_thread::sleep_for(100ms);
 
 			num = world.allAgentsData(agentsData);
 			Assert::AreEqual(1, (int)num);
