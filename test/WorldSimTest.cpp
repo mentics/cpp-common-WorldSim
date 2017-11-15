@@ -144,5 +144,105 @@ namespace WorldSimTest {
 		bool isAllPos(const vect3& v) {
 			return v[0] > 0 && v[1] > 0 && v[2] > 0;
 		}
+
+		struct Ray {
+			vect3 dir;
+			vect3 start;
+		};
+
+		typedef vect3 vec3;
+
+		float dot(const vec3& v1, const vec3& v2) {
+			return v1.dot(v2);
+		}
+
+		vec3 normalize(const vec3& v) {
+			return v.normalized();
+		}
+
+
+		bool intersectBlob(Ray ray, vec3& intersection, vec3& normal) {
+			float mag2 = dot(intersection, intersection);
+			if (mag2 < 0.000000001) {
+				return false;
+			}
+
+			//float value = 1.0 / mag2;
+			//vec3 grad = -2.0 * intersection / mag4;
+			vec3 test = intersection;
+			float t = 0;
+
+			vec3 grad = -2.0 * test / (mag2 * mag2);
+			float raygrad = dot(ray.dir, grad);
+
+			float value = 1.0 / mag2;
+			float tmax = (1.0 - value) / raygrad;
+			float tmin = 0;
+			int i = 0;
+			for (; i<20; i++) {
+				test = intersection + t * ray.dir;
+				mag2 = dot(test, test);
+
+				grad = -2.0 * test / (mag2 * mag2);
+				raygrad = dot(ray.dir, grad);
+				if (raygrad < 0) {
+					// We jumped too far to the other side, so back up.
+					tmax = t;
+					t = (tmax + tmin) / 2.0;
+					continue;
+				}
+				else if (abs(raygrad) < 0.001) {
+					// hit saddle point or nearest point, so it's a miss
+					return false;
+				}
+
+				value = 1.0 / mag2;
+				if (abs(value - 1.0) < 0.01) {
+					break;
+				} else if (value > 1.0) {
+					// went too far, we're inside now
+					tmax = t;
+					t = (tmax + tmin) / 2.0;
+				} else {
+					tmin = t;
+				}
+
+				t = (tmax + tmin) / 2.0;
+			}
+			if (i == 20) {
+				return false;
+			} else {
+				normal = -normalize(grad);
+				return true;
+			}
+		}
+
+		TEST_METHOD(TestElse) {
+			{
+				vec3 intersection(0, 0, -2);
+				vec3 normal(0, 0, 0);
+				intersectBlob(Ray{vec3(0, 0, 1), vec3(0, 0, -10)}, intersection, normal);
+				Assert::AreEqual(-1, normal[2], 0.01);
+			}
+
+			{
+				// miss on purpose
+				Ray ray{ vec3(0.1, 0.1, 0.9).normalized(), vec3(0, 0, -10) };
+				vec3 intersection;
+				intersection = ray.start + 9 * ray.dir;
+				vec3 normal(0, 0, 0);
+				Assert::IsFalse(intersectBlob(ray, intersection, normal));
+			}
+
+			{
+				Ray ray{ vec3(0.01, 0.01, 0.9).normalized(), vec3(0, 0, -10) };
+				vec3 intersection;
+				intersection = ray.start + 9 * ray.dir;
+				vec3 normal(0, 0, 0);
+				Assert::IsTrue(intersectBlob(ray, intersection, normal));
+				//Assert::AreEqual(-1, normal[2], 0.01);
+			}
+
+		}
 	};
 }

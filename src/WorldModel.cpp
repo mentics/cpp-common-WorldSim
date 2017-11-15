@@ -11,6 +11,7 @@ void WorldModel::forAllAgents(AgentIndex max, std::function<void(const Agent&)> 
 }
 
 void WorldModel::change(ChangeUniquePtr c) {
+	// TODO: assert the correct thread?
 	// TODO: store change
 	c->apply(nn::nn_addr(*this));
 }
