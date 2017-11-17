@@ -167,8 +167,6 @@ namespace WorldSimTest {
 				return false;
 			}
 
-			//float value = 1.0 / mag2;
-			//vec3 grad = -2.0 * intersection / mag4;
 			vec3 test = intersection;
 			float t = 0;
 
