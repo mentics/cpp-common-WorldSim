@@ -242,7 +242,6 @@ namespace WorldSimTest {
 				Assert::IsTrue(intersectBlob(ray, intersection, normal));
 				//Assert::AreEqual(-1, normal[2], 0.01);
 			}
-
 		}
 	};
 }
