@@ -195,7 +195,7 @@ namespace WorldSimTest {
 					return false;
 				}
 
-				value = 1.0 / mag2;
+				value = 1.0f / mag2;
 				if (abs(value - 1.0) < 0.01) {
 					break;
 				} else if (value > 1.0) {
