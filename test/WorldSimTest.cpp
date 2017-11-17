@@ -174,7 +174,7 @@ namespace WorldSimTest {
 			vec3 grad = -2.0 * test / (mag2 * mag2);
 			float raygrad = dot(ray.dir, grad);
 
-			float value = 1.0 / mag2;
+			float value = 1.0f / mag2;
 			float tmax = (1.0 - value) / raygrad;
 			float tmin = 0;
 			int i = 0;
