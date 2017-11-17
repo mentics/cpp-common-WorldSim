@@ -10,6 +10,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std::chrono_literals;
+
 const double EXACT_EPS = 1E-18;
 
 namespace WorldSimTest {
