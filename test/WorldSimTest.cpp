@@ -2,7 +2,7 @@
 #include "CppUnitTest.h"
 
 #include "World.h"
-#include "UserInput.h"
+#include "AgentControl.h"
 
 #include "MenticsCommonTest.h"
 
@@ -120,7 +120,7 @@ namespace WorldSimTest {
 
 		TEST_METHOD(TestWorld) {
 			World world(100000000);
-			UserInput player = world.createPlayerInput();
+			AgentControl player = world.createPlayerInput();
 			world.setTimeScale(1);
 
 			AgentPosVelAcc agentsData[10];

@@ -5,9 +5,10 @@
 #include "Events.h"
 #include "World.h"
 
-class UserInput {
+// all agents, both human and AI, are limited to this class for controlling behavior
+class AgentControl {
 public:
-	UserInput(const AgentId agentId, const SchedulerPtr<RealTime,WorldModel> sched, const RealTimeProviderPtr timeProv, RealTime inputTimeDelay)
+	AgentControl(const AgentId agentId, const SchedulerPtr<RealTime,WorldModel> sched, const RealTimeProviderPtr timeProv, RealTime inputTimeDelay)
 		: agentId(agentId), sched(sched), timeProv(timeProv), inputTimeDelay(inputTimeDelay) {}
 
 	void setTimeScale(double newTimeScale) {

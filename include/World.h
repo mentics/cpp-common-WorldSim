@@ -9,7 +9,7 @@
 //using SchedPtr = Scheduler<RealTime>*;
 //using SchedPtr = nn::nn<Scheduler<RealTime>*>;
 
-class UserInput;
+class AgentControl;
 
 struct RealTimeProvider : public SchedulerTimeProvider<RealTime> {
 	RealTime max = 2000000000000;
@@ -47,7 +47,7 @@ public:
 		sched.wakeUp();
 	}
 
-	UserInput createPlayerInput();
+	AgentControl createPlayerInput();
 
 	RealTime userInputTimeToRun() {
 		return timeProv.now() + userInputDelay;
