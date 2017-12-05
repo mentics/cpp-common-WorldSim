@@ -144,10 +144,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Agent.h" />
+    <ClInclude Include="include\AgentView.h" />
     <ClInclude Include="include\Events.h" />
     <ClCompile Include="src\Events.cpp" />
+    <ClInclude Include="include\Quip.h" />
     <ClInclude Include="include\WorldModel.h" />
     <ClInclude Include="include\AgentControl.h" />
+    <ClCompile Include="src\Quip.cpp" />
     <ClCompile Include="src\WorldModel.cpp" />
     <ClCompile Include="src\AgentControl.cpp">
       <FileType>CppHeader</FileType>

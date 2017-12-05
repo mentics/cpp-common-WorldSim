@@ -5,7 +5,6 @@
 #include "Scheduler.h"
 #include "WorldModel.h"
 
-
 //using SchedPtr = Scheduler<RealTime>*;
 //using SchedPtr = nn::nn<Scheduler<RealTime>*>;
 
@@ -54,6 +53,8 @@ public:
 	}
 
 	AgentIndex allAgentsData(gsl::span<AgentPosVelAcc> buffer);
+
+	nn::nn_unique_ptr<AgentControl> getControlAgent(AgentId id);
 
 private:
 	RealTime userInputDelay;
