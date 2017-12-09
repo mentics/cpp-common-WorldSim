@@ -26,7 +26,7 @@ public:
 	void forAllAgents(AgentIndex max, std::function<void(const Agent&)> handler);
 
 	Agent* agent(AgentId id) {
-		return &agents[id];
+		return id < agents.size() ? &agents[id] : nullptr;
 	}
 
 	void change(ChangeUniquePtr c);

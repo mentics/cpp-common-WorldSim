@@ -21,13 +21,15 @@ AgentIndex World::allAgentsData(gsl::span<AgentPosVelAcc> buffer) {
 	return index;
 }
 
-nn::nn_unique_ptr<AgentControl> World::getControlAgent(AgentId id) {
-	return nn::nn_make_unique<AgentControl>(id, nn::nn_addr(sched), nn::nn_addr(timeProv), userInputDelay);
-}
+std::pair<AgentControlUniquePtr, bool> World::getAgentControl(AgentId id) {
+	if (model.agent(id)) {
+		return std::make_pair(nn::nn_make_unique<AgentControl>(id, nn::nn_addr(sched), nn::nn_addr(timeProv), userInputDelay), true);
+	}
+	else {
+		return std::make_pair(nn::nn_make_unique<AgentControl>(-1, nn::nn_addr(sched), nn::nn_addr(timeProv), userInputDelay), false);
+	}
 
-//AgentControlUniquePtr World::getAgentControl(AgentId id) {
-//	return nn::nn_make_unique<AgentControl>(id, nn::nn_addr(sched), nn::nn_addr(timeProv), userInputDelay);
-//}
+}
 
 AgentControl World::createPlayerInput() {
 	AgentId agentId = model.createAgent();

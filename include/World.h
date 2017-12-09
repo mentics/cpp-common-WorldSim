@@ -9,6 +9,7 @@
 //using SchedPtr = nn::nn<Scheduler<RealTime>*>;
 
 class AgentControl;
+using AgentControlUniquePtr = nn::nn<std::unique_ptr<AgentControl> >;
 
 struct RealTimeProvider : public SchedulerTimeProvider<RealTime> {
 	RealTime max = 2000000000000;
@@ -54,7 +55,7 @@ public:
 
 	AgentIndex allAgentsData(gsl::span<AgentPosVelAcc> buffer);
 
-	nn::nn_unique_ptr<AgentControl> getControlAgent(AgentId id);
+	std::pair<AgentControlUniquePtr, bool> getAgentControl(AgentId id);
 
 private:
 	RealTime userInputDelay;

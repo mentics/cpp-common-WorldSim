@@ -23,4 +23,5 @@ private:
 	const RealTimeProviderPtr timeProv;
 	RealTime inputTimeDelay;
 };
+PTRS(AgentControl);
 
