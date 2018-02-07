@@ -12,16 +12,16 @@ Quip::Quip(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_sh
 
 using namespace std::placeholders;
 
-std::function<QuipChange(float)> QuipHelper::createMaxEnergyChange = std::bind(QuipHelper::createQuipChange, _1, boost::none, boost::none, boost::none);
-std::function<QuipChange(float)> QuipHelper::createEnergyRegenRateChange = std::bind(QuipHelper::createQuipChange, boost::none, _1, boost::none, boost::none);
-std::function<QuipChange(float)> QuipHelper::createMaxAttentionChange = std::bind(QuipHelper::createQuipChange, boost::none, boost::none, _1, boost::none);
-std::function<QuipChange(float)> QuipHelper::createAttentionRegenRateChange = std::bind(QuipHelper::createQuipChange, boost::none, boost::none, boost::none, _1);
+std::function<QuipChange(float)> QuipHelper::createMaxEnergyChange = std::bind(QuipHelper::createQuipChange, _1, NULL, NULL, NULL);
+std::function<QuipChange(float)> QuipHelper::createEnergyRegenRateChange = std::bind(QuipHelper::createQuipChange, NULL, _1, NULL, NULL);
+std::function<QuipChange(float)> QuipHelper::createMaxAttentionChange = std::bind(QuipHelper::createQuipChange, NULL, NULL, _1, NULL);
+std::function<QuipChange(float)> QuipHelper::createAttentionRegenRateChange = std::bind(QuipHelper::createQuipChange, NULL, NULL, NULL, _1);
 
-QuipChange QuipHelper::createQuipChange(optf p1, optf p2, optf p3, optf p4) {
+QuipChange QuipHelper::createQuipChange(float p1, float p2, float p3, float p4) {
 	return QuipChange([=](Quip &quip) {
-		if (p1) { quip.maxEnergy = p1.get();			}
-		if (p2) { quip.energyRegenRate = p2.get();		}
-		if (p3) { quip.maxAttention = p3.get();			}
-		if (p4) { quip.attentionRegenRate = p4.get();	}
+		quip.maxEnergy = p1;
+		quip.energyRegenRate = p2;
+		quip.maxAttention = p3;
+		quip.attentionRegenRate = p4;
 	}, std::chrono::system_clock::now().time_since_epoch().count());
 }

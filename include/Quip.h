@@ -4,7 +4,7 @@
 #include "Signal.h"
 #include "Agent.h"
 #include "Resettable.h"
-#include <boost/optional.hpp>
+
 
 class QuipHelper;
 class QuipTest;
@@ -26,10 +26,10 @@ private:
 };
 
 using QuipChange = MenticsGame::Change<Quip, RealTime>;
-using optf = boost::optional<float>;
+
 
 struct QuipHelper {
-	static QuipChange createQuipChange(optf maxEnergy, optf energyRegenRate, optf maxAttention, optf attentionRegenRate);
+	static QuipChange createQuipChange(float maxEnergy, float energyRegenRate, float maxAttention, float attentionRegenRate);
 	static std::function<QuipChange(float)> createMaxEnergyChange;
 	static std::function<QuipChange(float)> createEnergyRegenRateChange;
 	static std::function<QuipChange(float)> createMaxAttentionChange;
