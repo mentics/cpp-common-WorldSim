@@ -99,6 +99,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <UseFullPaths>true</UseFullPaths>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -162,6 +163,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\common\Common.vcxproj">
       <Project>{a1cea56a-2f14-4457-b2b1-bfb7c2c02c56}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\physics\Physics.vcxproj">
+      <Project>{4401d5e5-71f8-4b1f-9077-4182a339ca2f}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\simulator\Simulator.vcxproj">
       <Project>{459fce30-6405-43e4-a053-3d6513b53840}</Project>

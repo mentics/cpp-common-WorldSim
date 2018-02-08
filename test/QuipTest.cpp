@@ -9,12 +9,12 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 TEST_CLASS(QuipTest)
 {
-	boost::log::sources::severity_logger<boost::log::trivial::severity_level> lg;
+	
 	const std::string name = "ResettableTest";
 
 public:
 	TEST_CLASS_INITIALIZE(BeforeClass) {
-		setupLog();
+		//setupLog();
 	}
 
 	TEST_METHOD(TestQuipCreateChange) {

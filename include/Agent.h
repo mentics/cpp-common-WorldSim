@@ -24,9 +24,9 @@ struct Agent {
 	// Represents which team the agent is on. Used to identify friendlies and enemies. 
 	// Default value is 2 for enemy team.Value is 1 for single player's team.
 	uint16_t team;
-	virtual ~Agent() = 0;
+	//virtual ~Agent() = 0;
 };
 PTRS(Agent)
 
 // just so Agent is abstract, replace once any function gets added 
-Agent::~Agent() {}
+//Agent::~Agent() {}
