@@ -10,11 +10,7 @@ class AgentControl {
 public:
 	AgentControl(const AgentId agentId, const SchedulerPtr<RealTime,WorldModel> sched, const RealTimeProviderPtr timeProv, RealTime inputTimeDelay)
 		: agentId(agentId), sched(sched), timeProv(timeProv), inputTimeDelay(inputTimeDelay) {}
-
-	void setTimeScale(double newTimeScale) {
-		timeProv->timeScale = newTimeScale;
-	}
-
+	void setTimeScale(double newTimeScale);
 	void tempAcc(const vect3& dir);
 
 private:
