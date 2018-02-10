@@ -15,18 +15,44 @@ struct RealTimeProvider : public SchedulerTimeProvider<RealTime> {
 	RealTime max = 2000000000000;
 	RealTime lastChange = 0;
 	double timeScale = 0; // Always start paused
-	RealTime now();
-	inline RealTime maxTimeAhead();
-	inline chrono::nanoseconds realTimeUntil(RealTime t);
+
+	RealTime now() {
+		RealTime nanos = currentTimeNanos();
+		RealTime millis = currentTimeMillis();
+		return nanos;
+	}
+
+	inline RealTime maxTimeAhead() {
+		return max;
+	}
+
+	inline chrono::nanoseconds realTimeUntil(RealTime t) {
+		if (timeScale == 0) {
+			return chrono::nanoseconds((RealTime)FOREVER);
+		}
+		RealTime now = currentTimeNanos();
+		return chrono::nanoseconds((RealTime)trunc((t - now) / timeScale));
+	}
 };
 PTRS(RealTimeProvider)
 
 class World {
 public:
-	World(RealTime userInputDelay);
-	void setTimeScale(double newTimeScale);
+	World(RealTime userInputDelay) : userInputDelay(userInputDelay), timeProv(),
+		model(), schedModel("SchedulerModel"), sched("Scheduler", nn::nn_addr(schedModel), nn::nn_addr(timeProv), nn::nn_addr(model)) {
+	}
+
+	void setTimeScale(double newTimeScale) {
+		timeProv.timeScale = newTimeScale;
+		sched.wakeUp();
+	}
+
 	AgentControl createPlayerInput();
-	RealTime userInputTimeToRun();
+
+	RealTime userInputTimeToRun() {
+		return timeProv.now() + userInputDelay;
+	}
+
 	AgentIndex allAgentsData(gsl::span<AgentPosVelAcc> buffer);
 
 	std::pair<AgentControlUniquePtr, bool> getAgentControl(AgentId id);
