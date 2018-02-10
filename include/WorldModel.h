@@ -18,19 +18,10 @@ PTRS(Change)
 
 class WorldModel {
 public:
-	AgentId createAgent() {
-		agents.emplace_back(agents.size(), makeTrajZero(), makeTrajZero());
-		return agents.back().id;
-	}
-
+	AgentId createAgent();
 	void forAllAgents(AgentIndex max, std::function<void(const Agent&)> handler);
-
-	Agent* agent(AgentId id) {
-		return id < agents.size() ? &agents[id] : nullptr;
-	}
-
+	Agent* agent(AgentId id);
 	void change(ChangeUniquePtr c);
-
 	void reset(RealTime resetToTime);
 
 private:

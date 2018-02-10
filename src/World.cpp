@@ -2,7 +2,7 @@
 #include <gsl/gsl>
 #include "World.h"
 #include "AgentControl.h"
-#include "Scheduler.hpp" // This should be the only place that includes this
+#include "Scheduler.cpp" // This should be the only place that includes this
 
 //World<RealTime>* theWorld;
 //
@@ -35,4 +35,35 @@ AgentControl World::createPlayerInput() {
 	AgentId agentId = model.createAgent();
 	AgentControl input(agentId, nn::nn_addr(sched), nn::nn_addr(timeProv), userInputDelay);
 	return input;
+}
+
+
+RealTime RealTimeProvider::now() {
+	RealTime nanos = currentTimeNanos();
+	RealTime millis = currentTimeMillis();
+	return nanos;
+}
+
+RealTime RealTimeProvider::maxTimeAhead() {
+	return max;
+}
+
+chrono::nanoseconds RealTimeProvider::realTimeUntil(RealTime t) {
+	if (timeScale == 0) {
+		return chrono::nanoseconds((RealTime)FOREVER);
+	}
+	RealTime now = currentTimeNanos();
+	return chrono::nanoseconds((RealTime)trunc((t - now) / timeScale));
+}
+
+World::World(RealTime userInputDelay) : userInputDelay(userInputDelay), timeProv(),
+model(), schedModel("SchedulerModel"), sched("Scheduler", nn::nn_addr(schedModel), nn::nn_addr(timeProv), nn::nn_addr(model)) {}
+
+void World::setTimeScale(double newTimeScale) {
+	timeProv.timeScale = newTimeScale;
+	sched.wakeUp();
+}
+
+RealTime World::userInputTimeToRun() {
+	return timeProv.now() + userInputDelay;
 }
