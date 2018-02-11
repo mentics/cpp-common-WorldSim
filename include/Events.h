@@ -11,7 +11,18 @@ struct TrajectoryChange : public Change {
 	TrajectoryChange(RealTime at, AgentId agentId, nn::nn_shared_ptr<Trajectory> newTraj, std::shared_ptr<Trajectory> newVisibleTraj)
 		: Change{at}, agentId(agentId), newTraj(newTraj), newVisibleTraj(newVisibleTraj) {}
 
-	void apply(WorldModelPtr model);
+	void apply(WorldModelPtr model) {
+		Agent* a = model->agent(agentId);
+		if (a == nullptr) {
+			// TODO: ERROR? or could it have been destroyed?
+		}
+		else {
+			a->trajectory = std::move(newTraj);
+			if (newVisibleTraj != nullptr) {
+				a->visibleTrajectory = NN_CHECK_ASSERT(newVisibleTraj);
+			}
+		}
+	}
 
 	AgentId agentId;
 	nn::nn_shared_ptr<Trajectory> newTraj;
