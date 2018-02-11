@@ -6,7 +6,7 @@
 #include "Resettable.h"
 
 
-class QuipHelper;
+struct QuipHelper;
 class QuipTest;
 
 class Quip : public Agent {
