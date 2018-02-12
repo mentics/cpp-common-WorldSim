@@ -21,7 +21,7 @@ private:
 	float maxAttention;			// The current maximum attention this Quip can have.
 	float attentionRegenRate;	// The current rate at which this Quip regenerates attention.
 
-	Signal<double> energy; 
+	Signal<double> energy;
 	Signal<double> attention;
 };
 

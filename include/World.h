@@ -16,11 +16,7 @@ struct RealTimeProvider : public SchedulerTimeProvider<RealTime> {
 	RealTime lastChange = 0;
 	double timeScale = 0; // Always start paused
 
-	RealTime now() {
-		RealTime nanos = currentTimeNanos();
-		RealTime millis = currentTimeMillis();
-		return nanos;
-	}
+	RealTime now();
 
 	inline RealTime maxTimeAhead() {
 		return max;
@@ -42,16 +38,10 @@ public:
 		model(), schedModel("SchedulerModel"), sched("Scheduler", nn::nn_addr(schedModel), nn::nn_addr(timeProv), nn::nn_addr(model)) {
 	}
 
-	void setTimeScale(double newTimeScale) {
-		timeProv.timeScale = newTimeScale;
-		sched.wakeUp();
-	}
-
+	void setTimeScale(double newTimeScale);
 	AgentControl createPlayerInput();
 
-	RealTime userInputTimeToRun() {
-		return timeProv.now() + userInputDelay;
-	}
+	RealTime userInputTimeToRun();
 
 	AgentIndex allAgentsData(gsl::span<AgentPosVelAcc> buffer);
 

@@ -5,6 +5,7 @@
 #include "Trajectory.h"
 #include "Quip.h"
 
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 TEST_CLASS(QuipTest)

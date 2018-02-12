@@ -6,6 +6,7 @@
 
 #include "MenticsCommonTest.h"
 
+
 #include "Scheduler.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

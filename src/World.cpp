@@ -11,6 +11,21 @@
 //	return theWorld;
 //}
 
+void World::setTimeScale(double newTimeScale) {
+	timeProv.timeScale = newTimeScale;
+	sched.wakeUp();
+}
+
+RealTime World::userInputTimeToRun() {
+	return timeProv.now() + userInputDelay;
+}
+
+RealTime  RealTimeProvider::now() {
+	RealTime nanos = currentTimeNanos();
+	RealTime millis = currentTimeMillis();
+	return nanos;
+}
+
 AgentIndex World::allAgentsData(gsl::span<AgentPosVelAcc> buffer) {
 	AgentIndex index = 0;
 	const RealTime at = timeProv.now();

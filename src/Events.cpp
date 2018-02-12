@@ -17,3 +17,15 @@ void EventAcc::run(SchedulatorPtr<RealTime,WorldModel> sched, nn::nn<WorldModel*
 	model->change(uniquePtrC<Change, TrajectoryChange>(timeToRun, agentId, newTraj, visible));
 }
 
+void TrajectoryChange::apply(WorldModelPtr model) {
+	Agent* a = model->agent(agentId);
+	if (a == nullptr) {
+		// TODO: ERROR? or could it have been destroyed?
+	}
+	else {
+		a->trajectory = std::move(newTraj);
+		if (newVisibleTraj != nullptr) {
+			a->visibleTrajectory = NN_CHECK_ASSERT(newVisibleTraj);
+		}
+	}
+}
