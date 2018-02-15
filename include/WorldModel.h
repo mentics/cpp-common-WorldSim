@@ -1,4 +1,5 @@
 #pragma once
+
 #include "MenticsCommon.h"
 #include "Agent.h"
 
