@@ -2,38 +2,39 @@
 
 #include "MenticsCommon.h"
 #include "Agent.h"
+namespace MenticsGame {
+	typedef uint64_t RealTime; // nanoseconds
 
-typedef uint64_t RealTime; // nanoseconds
+	class WorldModel;
+	PTRS(WorldModel)
 
-class WorldModel;
-PTRS(WorldModel)
+		struct Change2 {
+		Change2(RealTime at) : at(at) {}
 
-struct Change {
-	Change(RealTime at) : at(at) {}
+		virtual void apply(WorldModelPtr model) = 0;
 
-	virtual void apply(WorldModelPtr model) = 0;
+		RealTime at;
+	};
+	PTRS(Change2)
 
-	RealTime at;
-};
-PTRS(Change)
+		class WorldModel {
+		public:
+			AgentId createAgent() {
+				agents.emplace_back(agents.size(), makeTrajZero(), makeTrajZero());
+				return agents.back().id;
+			}
 
-class WorldModel {
-public:
-	AgentId createAgent() {
-		agents.emplace_back(agents.size(), makeTrajZero(), makeTrajZero());
-		return agents.back().id;
-	}
+			void forAllAgents(AgentIndex max, std::function<void(const Agent&)> handler);
 
-	void forAllAgents(AgentIndex max, std::function<void(const Agent&)> handler);
+			Agent* agent(AgentId id) {
+				return id < agents.size() ? &agents[id] : nullptr;
+			}
 
-	Agent* agent(AgentId id) {
-		return id < agents.size() ? &agents[id] : nullptr;
-	}
+			void change(Change2UniquePtr c);
 
-	void change(ChangeUniquePtr c);
+			void reset(RealTime resetToTime);
 
-	void reset(RealTime resetToTime);
-
-private:
-	std::vector<Agent> agents;
-};
+		private:
+			std::vector<Agent> agents;
+	};
+}

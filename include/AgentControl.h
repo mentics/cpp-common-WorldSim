@@ -6,21 +6,22 @@
 #include "World.h"
 #include "Scheduler.h"
 
+namespace MenticsGame {
+	// all agents, both human and AI, are limited to this class for controlling behavior
+	class AgentControl {
+	public:
+		AgentControl(const AgentId agentId, const SchedulerPtr<RealTime, WorldModel> sched, const RealTimeProviderPtr timeProv, RealTime inputTimeDelay)
+			: agentId(agentId), sched(sched), timeProv(timeProv), inputTimeDelay(inputTimeDelay) {}
 
-// all agents, both human and AI, are limited to this class for controlling behavior
-class AgentControl {
-public:
-	AgentControl(const AgentId agentId, const SchedulerPtr<RealTime,WorldModel> sched, const RealTimeProviderPtr timeProv, RealTime inputTimeDelay)
-		: agentId(agentId), sched(sched), timeProv(timeProv), inputTimeDelay(inputTimeDelay) {}
+		void setTimeScale(double newTimeScale);
+		void tempAcc(const vect3& dir);
 
-	void setTimeScale(double newTimeScale);
-	void tempAcc(const vect3& dir);
+	private:
+		const AgentId agentId;
+		const SchedulerPtr<RealTime, WorldModel> sched;
+		const RealTimeProviderPtr timeProv;
+		RealTime inputTimeDelay;
+	};
+	PTRS(AgentControl);
 
-private:
-	const AgentId agentId;
-	const SchedulerPtr<RealTime, WorldModel> sched;
-	const RealTimeProviderPtr timeProv;
-	RealTime inputTimeDelay;
-};
-PTRS(AgentControl);
-
+}
