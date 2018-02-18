@@ -29,7 +29,7 @@ namespace MenticsGame {
 			void reset(RealTime resetToTime);
 
 		private:
-			std::vector<Agent> agents;
+			AllAgents agents;
 			Resettable reset;
 	};
 }

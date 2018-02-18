@@ -4,6 +4,8 @@
 #include "MenticsCommonTest.h"
 #include "MenticsMath.h"
 #include "Trajectory.h"
+#include "Quip.h"
+#include <vector>
 
 
 namespace MenticsGame {
@@ -32,5 +34,25 @@ namespace MenticsGame {
 	PTRS(Agent)
 
 		// just so Agent is abstract, replace once any function gets added 
-		//Agent::~Agent() {}
+		//Agent::~Agent() {} //  Causes errors because other parts of the code do instantiate it, we should find them and change them
+
+	class Boss : public Quip {};
+	class Minion : public Quip {};
+	class Shot : public Quip {};
+
+	struct AllAgents
+	{
+		std::vector<Boss> bosses; 
+		std::vector<Minion> minions;  
+		std::vector<Shot> shots;
+
+		template <typename T>
+		void forEach(T f) 
+		{
+			for (Boss boss : bosses) f(boss);
+			for (Minion minion : minions) f(minion);
+			for (Shot shot : shots) f(shot);
+		}
+
+	};
 }
