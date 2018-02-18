@@ -2,6 +2,8 @@
 
 #include "MenticsCommon.h"
 #include "Agent.h"
+#include "Resettable.h"
+
 namespace MenticsGame {
 	typedef uint64_t RealTime; // nanoseconds
 
@@ -19,22 +21,15 @@ namespace MenticsGame {
 
 		class WorldModel {
 		public:
-			AgentId createAgent() {
-				agents.emplace_back(agents.size(), makeTrajZero(), makeTrajZero());
-				return agents.back().id;
-			}
-
-			void forAllAgents(AgentIndex max, std::function<void(const Agent&)> handler);
-
 			Agent* agent(AgentId id) {
 				return id < agents.size() ? &agents[id] : nullptr;
 			}
 
-			void change(Change2UniquePtr c);
 
 			void reset(RealTime resetToTime);
 
 		private:
 			std::vector<Agent> agents;
+			Resettable reset;
 	};
 }
