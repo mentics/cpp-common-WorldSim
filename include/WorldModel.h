@@ -4,32 +4,28 @@
 #include "Agent.h"
 #include "Resettable.h"
 
+
 namespace MenticsGame {
 	typedef uint64_t RealTime; // nanoseconds
 
 	class WorldModel;
 	PTRS(WorldModel)
 
-		struct Change2 {
-		Change2(RealTime at) : at(at) {}
 
-		virtual void apply(WorldModelPtr model) = 0;
-
-		RealTime at;
-	};
-	PTRS(Change2)
-
-		class WorldModel {
-		public:
-			Agent* agent(AgentId id) {
-				return id < agents.size() ? &agents[id] : nullptr;
-			}
+	class WorldModel {
+	public:
+		Agent<RealTime>* agent(AgentId id) {
+			//return id < agents.size() ? &agents[id] : nullptr;
+			return nullptr;
+		}
 
 
-			void reset(RealTime resetToTime);
+		void reset(RealTime resetToTime);
 
-		private:
-			AllAgents agents;
-			Resettable reset;
+
+		
+		AllAgents agents;
+	private:
+		Resettable<RealTime> Reset;
 	};
 }

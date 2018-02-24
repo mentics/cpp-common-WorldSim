@@ -3,6 +3,6 @@
 
 namespace MenticsGame {
 	void WorldModel::reset(RealTime resetToTime) {
-		reset.reset(resetToTime);
+		Reset.reset(resetToTime);
 	}
 }

@@ -4,6 +4,7 @@
 #include "Agent.h"
 #include "Scheduler.h"
 #include "WorldModel.h"
+#include "gsl\gsl"
 
 //using SchedPtr = Scheduler<RealTime>*;
 //using SchedPtr = nn::nn<Scheduler<RealTime>*>;
@@ -50,8 +51,8 @@ namespace MenticsGame {
 		private:
 			RealTime userInputDelay;
 			RealTimeProvider timeProv;
-			SchedulerModel<RealTime, WorldModel> schedModel;
-			Scheduler<RealTime, WorldModel> sched;
+			SchedulerModel<WorldModel, RealTime> schedModel;
+			Scheduler<WorldModel, RealTime> sched;
 			WorldModel model;
 	};
 }
