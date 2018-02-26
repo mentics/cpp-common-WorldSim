@@ -26,13 +26,13 @@ namespace MenticsGame {
 
 		const AgentId id;
 		Signal<TimeType> thoughtPeriod;
-		nn::nn_shared_ptr<Trajectory> trajectory;
-		nn::nn_shared_ptr<Trajectory> visibleTrajectory;
+		ValueSignal<Trajectory, TimeType> trajectory;
+	
 		// Represents which team the agent is on. Used to identify friendlies and enemies. 
 		// Default value is 2 for enemy team.Value is 1 for single player's team.
-		uint16_t team;
-		Signal<TimeType> reactionTime;
-		Signal<TimeType> perceptionDelay;
+		ValueSignal<uint16_t, TimeType> team;
+		//ValueSignal<TimeType> reactionTime;
+		//ValueSignal<TimeType> perceptionDelay;
 		//virtual ~Agent() = 0;
 	};
 	PTRS1(Agent, TimeType)
