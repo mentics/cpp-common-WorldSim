@@ -6,6 +6,8 @@
 #include "WorldModel.h"
 #include "gsl\gsl"
 
+
+
 //using SchedPtr = Scheduler<RealTime>*;
 //using SchedPtr = nn::nn<Scheduler<RealTime>*>;
 namespace MenticsGame {
@@ -55,4 +57,9 @@ namespace MenticsGame {
 			Scheduler<WorldModel, RealTime> sched;
 			WorldModel model;
 	};
+
+
+
+
+
 }

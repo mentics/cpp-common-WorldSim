@@ -146,9 +146,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\AIController.h" />
     <ClInclude Include="include\Agent.h" />
     <ClInclude Include="include\AgentView.h" />
     <ClInclude Include="include\Events.h" />
+    <ClCompile Include="src\AIController.cpp" />
     <ClCompile Include="src\Events.cpp" />
     <ClInclude Include="include\Quip.h" />
     <ClInclude Include="include\WorldModel.h" />

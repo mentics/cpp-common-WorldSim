@@ -3,7 +3,9 @@
 #include "MenticsCommon.h"
 #include "Agent.h"
 #include "Resettable.h"
+#include "Quip.h"
 
+class Quip;
 
 namespace MenticsGame {
 	typedef uint64_t RealTime; // nanoseconds
@@ -11,6 +13,28 @@ namespace MenticsGame {
 	class WorldModel;
 	PTRS(WorldModel)
 
+	struct AllAgents
+	{
+		std::vector<Boss> bosses;
+		std::vector<Minion> minions;
+		std::vector<Shot> shots;
+		std::vector<Quip> quips;
+
+		template <typename T>
+		void forEach(T f)
+		{
+			for (Boss boss : bosses) f(boss);
+			for (Minion minion : minions) f(minion);
+			for (Shot shot : shots) f(shot);
+			for (Quip quip : quips) f(quip);
+		}
+
+		size_t size()
+		{
+			return bosses.size() + minions.size() + shots.size();// + quips.size();
+		}
+
+	};
 
 	class WorldModel {
 	public:
