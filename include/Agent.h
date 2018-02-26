@@ -25,13 +25,13 @@ namespace MenticsGame {
 			: id(id), trajectory(trajectory), visibleTrajectory(visibleTrajectory), team(team) {}
 
 		const AgentId id;
-		Signal<TimeType> thoughtPeriod;
-		ValueSignal<Trajectory, TimeType> trajectory;
+		//ValueSignal<TimeType,TimeType> thoughtPeriod; // Hmm?
+//		ValueSignal<Trajectory, TimeType> trajectory;
 	
 		// Represents which team the agent is on. Used to identify friendlies and enemies. 
 		// Default value is 2 for enemy team.Value is 1 for single player's team.
 		ValueSignal<uint16_t, TimeType> team;
-		//ValueSignal<TimeType> reactionTime;
+		//ValueSignal<TimeType> reactionTime; 
 		//ValueSignal<TimeType> perceptionDelay;
 		//virtual ~Agent() = 0;
 	};
