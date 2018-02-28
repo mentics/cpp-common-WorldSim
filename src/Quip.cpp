@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Quip.h"
-#include "SignalFunctions.h"
+
 
 namespace MenticsGame {
 	Quip::Quip(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory,
