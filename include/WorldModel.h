@@ -18,7 +18,7 @@ namespace MenticsGame {
 		std::vector<Boss> bosses;
 		std::vector<Minion> minions;
 		std::vector<Shot> shots;
-		std::vector<Quip> quips;
+		std::vector<Quip<RealTime>> quips;
 
 		template <typename T>
 		void forEach(T f)
@@ -26,7 +26,7 @@ namespace MenticsGame {
 			for (Boss boss : bosses) f(boss);
 			for (Minion minion : minions) f(minion);
 			for (Shot shot : shots) f(shot);
-			for (Quip quip : quips) f(quip);
+			for (Quip<RealTime> quip : quips) f(quip);
 		}
 
 		size_t size()

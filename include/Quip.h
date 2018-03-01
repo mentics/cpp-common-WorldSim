@@ -10,9 +10,15 @@ namespace MenticsGame {
 	class QuipTest;
 
 	template<typename TimeType = TimePoint>
-	class Quip : public Agent<> {
+	class Quip : public Agent<TimeType> {
 	public:
-		Quip(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory, float maxEnergy, float energyRegenRate, float maxAttention, float attentionRegenRate, uint16_t team = 2);
+		Quip(){}
+		Quip(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory,
+			float maxEnergy, float energyRegenRate, float maxAttention, float attentionRegenRate, TeamId team = 2)
+			: Agent(id, trajectory, visibleTrajectory, team)
+			, maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention), attentionRegenRate(attentionRegenRate)
+			, energy(maxEnergy, 0), attention(maxAttention, 0)
+		{}
 		friend QuipHelper;
 		friend QuipTest;
 
@@ -22,10 +28,11 @@ namespace MenticsGame {
 		float maxAttention;			// The current maximum attention this Quip can have.
 		float attentionRegenRate;	// The current rate at which this Quip regenerates attention.
 
-		ValueSignal<double, TimeType> energy;
-		ValueSignal<double, TimeType> attention;
+		Signal<double, TimeType> energy;
+		Signal<double, TimeType> attention;
 	};
 
+	typedef uint64_t RealTime;
 	using QuipChange = ChangeValue<Quip<TimePoint>, RealTime>;
 	
 	

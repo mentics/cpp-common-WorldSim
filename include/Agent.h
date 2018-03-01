@@ -8,6 +8,8 @@
 
 
 namespace MenticsGame {
+
+	typedef uint16_t TeamId;
 	typedef uint64_t AgentId;
 	typedef uint32_t AgentIndex;
 
@@ -21,18 +23,18 @@ namespace MenticsGame {
 	template<typename TimeType = TimePoint>
 	struct Agent {
 		Agent() {}
-		Agent(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory, uint16_t team = 2)
+		Agent(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory, TeamId team = 2)
 			: id(id), trajectory(trajectory), visibleTrajectory(visibleTrajectory), team(team) {}
 
 		const AgentId id;
-		//ValueSignal<TimeType,TimeType> thoughtPeriod; // Hmm?
-//		ValueSignal<Trajectory, TimeType> trajectory;
+		Signal<TimeType,TimeType> thoughtPeriod; // not sure?
+		Signal<Trajectory*, TimeType> trajectory;
 	
 		// Represents which team the agent is on. Used to identify friendlies and enemies. 
 		// Default value is 2 for enemy team.Value is 1 for single player's team.
-		ValueSignal<uint16_t, TimeType> team;
-		//ValueSignal<TimeType> reactionTime; 
-		//ValueSignal<TimeType> perceptionDelay;
+		Signal<TeamId, TimeType> team;
+		Signal<TimeType> reactionTime; 
+		Signal<TimeType> perceptionDelay;
 		//virtual ~Agent() = 0;
 	};
 	PTRS1(Agent, TimeType)
