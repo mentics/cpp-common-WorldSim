@@ -34,7 +34,7 @@ namespace MenticsGame {
 		AgentIndex index = 0;
 		const RealTime at = timeProv.now();
 		model.agents.forEach([at, &buffer, &index](const Agent<>& agent) {
-			agent.trajectory->posVelAcc((double)at, nn::nn_addr(buffer[index].pva));
+			//agent.trajectory->posVelAcc((double)at, nn::nn_addr(buffer[index].pva));
 			index++;
 		});
 		return index;
