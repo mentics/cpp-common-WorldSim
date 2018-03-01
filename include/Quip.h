@@ -9,6 +9,7 @@ namespace MenticsGame {
 	struct QuipHelper;
 	class QuipTest;
 
+	template<typename TimeType = TimePoint>
 	class Quip : public Agent<> {
 	public:
 		Quip(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory, float maxEnergy, float energyRegenRate, float maxAttention, float attentionRegenRate, uint16_t team = 2);
@@ -21,18 +22,18 @@ namespace MenticsGame {
 		float maxAttention;			// The current maximum attention this Quip can have.
 		float attentionRegenRate;	// The current rate at which this Quip regenerates attention.
 
-		//Signal<double> energy;
-		//Signal<double> attention;
+		ValueSignal<double, TimeType> energy;
+		ValueSignal<double, TimeType> attention;
 	};
 
-	//using QuipChange = ChangeValue<Quip, RealTime>;
-	//
-	//
-	//struct QuipHelper {
-	//	static QuipChange createQuipChange(float maxEnergy, float energyRegenRate, float maxAttention, float attentionRegenRate);
-	//	static std::function<QuipChange(float)> createMaxEnergyChange;
-	//	static std::function<QuipChange(float)> createEnergyRegenRateChange;
-	//	static std::function<QuipChange(float)> createMaxAttentionChange;
-	//	static std::function<QuipChange(float)> createAttentionRegenRateChange;
-	//};
-}	//
+	using QuipChange = ChangeValue<Quip<TimePoint>, RealTime>;
+	
+	
+	struct QuipHelper {
+		static QuipChange createQuipChange(float maxEnergy, float energyRegenRate, float maxAttention, float attentionRegenRate);
+		static std::function<QuipChange(float)> createMaxEnergyChange;
+		static std::function<QuipChange(float)> createEnergyRegenRateChange;
+		static std::function<QuipChange(float)> createMaxAttentionChange;
+		static std::function<QuipChange(float)> createAttentionRegenRateChange;
+	};
+}	
