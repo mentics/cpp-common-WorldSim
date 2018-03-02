@@ -22,11 +22,10 @@ namespace MenticsGame {
 
 	template<typename TimeType = TimePoint>
 	struct Agent {
-		Agent() {}
 		Agent(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory, TeamId team = 2)
 			: id(id), trajectory(trajectory), visibleTrajectory(visibleTrajectory), team(team) {}
 
-		const AgentId id;
+		AgentId id;
 		Signal<TimeType,TimeType> thoughtPeriod; // not sure?
 		Signal<Trajectory*, TimeType> trajectory;
 	

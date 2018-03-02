@@ -1,6 +1,5 @@
 #pragma once
 
-#include "WorldModel.h"
 #include "Signal.h"
 #include "Agent.h"
 #include "Resettable.h"
@@ -23,24 +22,13 @@ namespace MenticsGame {
 		friend QuipTest;
 
 	private:
-		float maxEnergy;			// The current maximum energy this Quip can have.
-		float energyRegenRate;		// The current rate at which this Quip regenerates energy.
-		float maxAttention;			// The current maximum attention this Quip can have.
-		float attentionRegenRate;	// The current rate at which this Quip regenerates attention.
+		Signal<float, TimeType> maxEnergy;			// The current maximum energy this Quip can have.
+		Signal<float, TimeType> energyRegenRate;		// The current rate at which this Quip regenerates energy.
+		Signal<float, TimeType> maxAttention;			// The current maximum attention this Quip can have.
+		Signal<float, TimeType> attentionRegenRate;	// The current rate at which this Quip regenerates attention.
 
 		Signal<double, TimeType> energy;
 		Signal<double, TimeType> attention;
 	};
 
-	typedef uint64_t RealTime;
-	using QuipChange = ChangeValue<Quip<TimePoint>, RealTime>;
-	
-	
-	struct QuipHelper {
-		static QuipChange createQuipChange(float maxEnergy, float energyRegenRate, float maxAttention, float attentionRegenRate);
-		static std::function<QuipChange(float)> createMaxEnergyChange;
-		static std::function<QuipChange(float)> createEnergyRegenRateChange;
-		static std::function<QuipChange(float)> createMaxAttentionChange;
-		static std::function<QuipChange(float)> createAttentionRegenRateChange;
-	};
 }	

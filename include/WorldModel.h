@@ -5,7 +5,7 @@
 #include "Resettable.h"
 #include "Quip.h"
 
-class Quip;
+
 
 namespace MenticsGame {
 	typedef uint64_t RealTime; // nanoseconds
