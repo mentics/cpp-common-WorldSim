@@ -35,6 +35,7 @@ namespace MenticsGame {
 		Signal<TeamId, TimeType> team;
 		Signal<TimeType> reactionTime; 
 		Signal<TimeType> perceptionDelay;
+		bool deleted = false;
 		//virtual ~Agent() = 0;
 	};
 	PTRS1(Agent, TimeType)

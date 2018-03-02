@@ -23,10 +23,10 @@ namespace MenticsGame {
 		template <typename T>
 		void forEach(T f)
 		{
-			for (Boss boss : bosses) f(boss);
-			for (Minion minion : minions) f(minion);
-			for (Shot shot : shots) f(shot);
-			for (Quip<RealTime> quip : quips) f(quip);
+			for (Boss boss : bosses) if (boss.deleted) continue; else f(boss);
+			for (Minion minion : minions) if(minion.deleted)  continue; else f(minion);
+			for (Shot shot : shots) if(shot.deleted)  continue; else f(shot);
+			for (Quip<RealTime> quip : quips) if(quip.deleted)  continue; else f(quip);
 		}
 
 		size_t size()
