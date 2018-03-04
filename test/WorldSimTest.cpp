@@ -7,7 +7,7 @@
 #include "MenticsCommonTest.h"
 
 
-#include "Scheduler.hpp"
+#include "Scheduler.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std::chrono_literals;

@@ -2,7 +2,7 @@
 #include <gsl/gsl>
 #include "World.h"
 #include "AgentControl.h"
-#include "Scheduler.hpp" // This should be the only place that includes this
+#include "Scheduler.h" // This should be the only place that includes this
 #include "WorldModel.h"
 
 
@@ -33,10 +33,10 @@ namespace MenticsGame {
 	AgentIndex World::allAgentsData(gsl::span<AgentPosVelAcc> buffer) {
 		AgentIndex index = 0;
 		const RealTime at = timeProv.now();
-		model.agents.forEach([at, &buffer, &index](const Agent<>& agent) {
+		model.agents.forEach([at, &buffer, &index](Agent<> agent) {
 			//agent.trajectory->posVelAcc((double)at, nn::nn_addr(buffer[index].pva));
 			index++;
-		});
+		}, at);
 		return index;
 	}
 

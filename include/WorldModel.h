@@ -4,6 +4,7 @@
 #include "Agent.h"
 #include "Resettable.h"
 #include "Quip.h"
+#include "Signal.h"
 
 
 
@@ -14,24 +15,19 @@ namespace MenticsGame {
 	PTRS(WorldModel)
 
 	struct AllAgents
-	{
-		std::vector<Boss> bosses;
-		std::vector<Minion> minions;
-		std::vector<Shot> shots;
-		std::vector<Quip<RealTime>> quips;
+	{ 
+		SignalCollection<Boss, RealTime> bosses;
+		SignalCollection<Minion, RealTime> minions;  
+		SignalCollection<Shot, RealTime> shots;
+		SignalCollection<Quip<RealTime>, RealTime> quips;
 
-		template <typename T>
-		void forEach(T f)
+		template <typename TimeType = TimePoint>
+		void forEach(std::function<void(Agent<>)> f, TimeType now)
 		{
-			for (Boss boss : bosses) if (boss.deleted) continue; else f(boss);
-			for (Minion minion : minions) if(minion.deleted)  continue; else f(minion);
-			for (Shot shot : shots) if(shot.deleted)  continue; else f(shot);
-			for (Quip<RealTime> quip : quips) if(quip.deleted)  continue; else f(quip);
-		}
-
-		size_t size()
-		{
-			return bosses.size() + minions.size() + shots.size();// + quips.size();
+			bosses.forEach(now, [=](Boss b) {f(b); });
+			bosses.forEach(now, [=](Minion b) {f(b); });
+			bosses.forEach(now, [=](Shot b) {f(b); });
+			bosses.forEach(now, [=](Quip b) {f(b); }); 
 		}
 
 	};
@@ -50,6 +46,5 @@ namespace MenticsGame {
 		
 		AllAgents agents;
 	private:
-		Resettable<RealTime> Reset;
 	};
 }
