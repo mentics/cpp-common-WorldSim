@@ -22,12 +22,20 @@ namespace MenticsGame {
 		SignalCollection<Quip<RealTime>, RealTime> quips;
 
 		template <typename TimeType = TimePoint>
-		void forEach(std::function<void(Agent<>)> f, TimeType now)
+		void forEach(std::function<void(Agent<>*)> f, TimeType now)
 		{
-			bosses.forEach(now, [=](Boss b) {f(b); });
-			bosses.forEach(now, [=](Minion b) {f(b); });
-			bosses.forEach(now, [=](Shot b) {f(b); });
-			bosses.forEach(now, [=](Quip b) {f(b); }); 
+			bosses.forEach(now, [=](Boss* b) {f(b); });
+			minions.forEach(now, [=](Minion* b) {f(b); });
+			shots.forEach(now, [=](Shot* b) {f(b); });
+			quips.forEach(now, [=](Quip* b) {f(b); });                     
+		}
+
+		void reset(RealTime at)
+		{
+			bosses.reset(at);
+			minions.reset(at);
+			shots.reset(at);
+			quips.reset(at);
 		}
 
 	};
@@ -35,7 +43,7 @@ namespace MenticsGame {
 	class WorldModel {
 	public:
 		Agent<RealTime>* agent(AgentId id) {
-			//return id < agents.size() ? &agents[id] : nullptr;
+			//return id < agents.size() ? &agents[id] : nullptr; // need size() for this 
 			return nullptr;
 		}
 

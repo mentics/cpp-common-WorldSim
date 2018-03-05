@@ -33,7 +33,7 @@ namespace MenticsGame {
 	AgentIndex World::allAgentsData(gsl::span<AgentPosVelAcc> buffer) {
 		AgentIndex index = 0;
 		const RealTime at = timeProv.now();
-		model.agents.forEach([at, &buffer, &index](Agent<> agent) {
+		model.agents.forEach([at, &buffer, &index](Agent<>* agent) {
 			//agent.trajectory->posVelAcc((double)at, nn::nn_addr(buffer[index].pva));
 			index++;
 		}, at);

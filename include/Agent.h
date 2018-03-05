@@ -25,8 +25,17 @@ namespace MenticsGame {
 		Agent(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory, TeamId team = 2)
 			: id(id), trajectory(trajectory), visibleTrajectory(visibleTrajectory), team(team) {}
 
+		virtual void reset(TimeType resetTime)
+		{
+			thoughtPeriod.reset(resetTime);
+			trajectory.reset(resetTime);
+			team.reset(resetTime);
+			reactionTime.reset(resetTime);
+			perceptionDelay.reset(resetTime);
+		}
+
 		AgentId id;
-		Signal<TimeType,TimeType> thoughtPeriod; // not sure?
+		Signal<TimeType,TimeType> thoughtPeriod; // not sure? <TimeType, TimeType>
 		Signal<Trajectory*, TimeType> trajectory;
 	
 		// Represents which team the agent is on. Used to identify friendlies and enemies. 

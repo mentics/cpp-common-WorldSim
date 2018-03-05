@@ -18,9 +18,20 @@ namespace MenticsGame {
 			, maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention), attentionRegenRate(attentionRegenRate)
 			, energy(maxEnergy, 0), attention(maxAttention, 0)
 		{}
+
 		friend QuipHelper;
 		friend QuipTest;
 
+		void reset(TimeType resetTime)
+		{
+			Agent::reset(resetTime);
+			maxEnergy.reset(resetTime);
+			energyRegenRate.reset(resetTime);
+			maxAttention.reset(resetTime);
+			attentionRegenRate.reset(resetTime);
+			energy.reset(resetTime);
+			attention.reset(resetTime);
+		}
 	private:
 		Signal<float, TimeType> maxEnergy;			// The current maximum energy this Quip can have.
 		Signal<float, TimeType> energyRegenRate;		// The current rate at which this Quip regenerates energy.
