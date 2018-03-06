@@ -50,6 +50,9 @@ namespace MenticsGame {
 
 			std::pair<AgentControlUniquePtr, bool> getAgentControl(AgentId id);
 
+			template <typename TimeType>
+			void createQuip(TimeType at);
+
 		private:
 			RealTime userInputDelay;
 			RealTimeProvider timeProv;
@@ -61,5 +64,7 @@ namespace MenticsGame {
 
 
 
+
+	
 
 }

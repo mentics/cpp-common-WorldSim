@@ -12,12 +12,19 @@ namespace MenticsGame {
 	class Quip : public Agent<TimeType> {
 	public:
 		Quip(){}
-		Quip(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory,
+		Quip(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory,
 			float maxEnergy, float energyRegenRate, float maxAttention, float attentionRegenRate, TeamId team = 2)
-			: Agent(id, trajectory, visibleTrajectory, team)
+			: Agent(id, trajectory, team)
 			, maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention), attentionRegenRate(attentionRegenRate)
 			, energy(maxEnergy, 0), attention(maxAttention, 0)
-		{}
+		{
+			maxEnergy.add(0, 0);
+			energyRegenRate.add(0, 0);
+			maxAttention.add(0, 0);
+			attentionRegenRate.add(0, 0);
+			energy.add(0, 0);
+			attention.add(0, 0);
+		}
 
 		friend QuipHelper;
 		friend QuipTest;

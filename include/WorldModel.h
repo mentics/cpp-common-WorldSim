@@ -26,9 +26,10 @@ namespace MenticsGame {
 			bosses.forEach(now, [=](Boss* b) {f(b); });
 			minions.forEach(now, [=](Minion* b) {f(b); });
 			shots.forEach(now, [=](Shot* b) {f(b); });
-			quips.forEach(now, [=](Quip<>* b) {f(b); });                     
+			quips.forEach(now, [=](Quip<>* b) {f(b); });
 		}
 
+		
 		void reset(RealTime at)
 		{
 			bosses.reset(at);
@@ -46,12 +47,14 @@ namespace MenticsGame {
 			return nullptr;
 		}
 
+		template <typename TimeType>
+		void createQuip(TimeType at);
 
 		void reset(RealTime resetToTime);
-
-
 		
 		AllAgents agents;
 	private:
 	};
+
+	
 }

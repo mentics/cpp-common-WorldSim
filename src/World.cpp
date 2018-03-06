@@ -50,6 +50,14 @@ namespace MenticsGame {
 
 	}
 
+	template<typename TimeType>
+	void World::createQuip(TimeType at)
+	{
+		EventAcc e(0, at, 0, vect3());
+		sched.schedule(e); 
+		
+	}
+
 	//AgentControl World::createPlayerInput() {
 		//AgentId agentId = model.createAgent();
 		//AgentControl input(agentId, nn::nn_addr(sched), nn::nn_addr(timeProv), userInputDelay);

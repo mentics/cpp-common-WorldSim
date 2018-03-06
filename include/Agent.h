@@ -22,8 +22,16 @@ namespace MenticsGame {
 
 	template<typename TimeType = TimePoint>
 	struct Agent {
-		Agent(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, nn::nn_shared_ptr<Trajectory> visibleTrajectory, TeamId team = 2)
-			: id(id), trajectory(trajectory), visibleTrajectory(visibleTrajectory), team(team) {}
+		Agent() {}
+		Agent(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, TeamId team = 2)
+			: id(id), team(team) 
+		{
+			thoughtPeriod.add(0, 0);
+			trajectory.add(0, 0);
+			team.add(0, 0);
+			reactionTime.add(0, 0);
+			perceptionDelay.add(0, 0);
+		}
 
 		virtual void reset(TimeType resetTime)
 		{
