@@ -58,6 +58,16 @@ namespace MenticsGame {
 		
 	}
 
+	WorldModel* getp(World *w)
+	{
+		return &w->model;
+	}
+
+	Scheduler<WorldModel, RealTime>* getpSched(World *w)
+	{
+		return &w->sched;
+	}
+
 	//AgentControl World::createPlayerInput() {
 		//AgentId agentId = model.createAgent();
 		//AgentControl input(agentId, nn::nn_addr(sched), nn::nn_addr(timeProv), userInputDelay);

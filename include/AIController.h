@@ -8,11 +8,12 @@ class AIController
 {
 public:
 	AIController();
-	void run();
+	virtual void run() = 0;
+
 private:
-	//AgentControlPtr AgentCtrlPtr;
-	//SchedulerPtr<Model, TimeType> SchedPtr;
-	//AgentPtr<TimeType> AgntPtr;
+	
+	SchedulerPtr<Model, TimeType> SchedPtr;
+	AgentPtr<TimeType> AgntPtr;
 	
 };
 

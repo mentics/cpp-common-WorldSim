@@ -9,8 +9,6 @@ namespace MenticsGame {
 		agents.quips.add(q,at);
 	} 
 
-	void WorldModel::reset(RealTime resetToTime) {
-		agents.reset(resetToTime);
-	}
+	
 
 }

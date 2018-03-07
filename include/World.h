@@ -35,11 +35,16 @@ namespace MenticsGame {
 	};
 	PTRS(RealTimeProvider)
 
+		
+
 		class World {
 		public:
 			World(RealTime userInputDelay) : userInputDelay(userInputDelay), timeProv(),
 				model(), schedModel("SchedulerModel"), sched("Scheduler", nn::nn_addr(schedModel), nn::nn_addr(timeProv), nn::nn_addr(model)) {
 			}
+
+
+			
 
 			void setTimeScale(double newTimeScale);
 			AgentControl createPlayerInput();
@@ -54,6 +59,10 @@ namespace MenticsGame {
 			void createQuip(TimeType at);
 
 		private:
+			
+			friend  WorldModel* getp(World *);
+			friend Scheduler<WorldModel, RealTime>* getpSched(World *);
+
 			RealTime userInputDelay;
 			RealTimeProvider timeProv;
 			SchedulerModel<WorldModel, RealTime> schedModel;

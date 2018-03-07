@@ -50,7 +50,9 @@ namespace MenticsGame {
 		template <typename TimeType>
 		void createQuip(TimeType at);
 
-		void reset(RealTime resetToTime);
+		void reset(RealTime resetToTime) {
+			agents.reset(resetToTime);
+		}
 		
 		AllAgents agents;
 	private:
