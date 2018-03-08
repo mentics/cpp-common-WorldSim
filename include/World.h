@@ -5,7 +5,7 @@
 #include "Scheduler.h"
 #include "WorldModel.h"
 #include "gsl\gsl"
-
+#include "Events.h"
 
 
 //using SchedPtr = Scheduler<RealTime>*;
@@ -55,6 +55,7 @@ namespace MenticsGame {
 
 			std::pair<AgentControlUniquePtr, bool> getAgentControl(AgentId id);
 
+			
 			void createQuip(RealTime at);
 
 		private:

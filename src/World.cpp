@@ -54,7 +54,7 @@ namespace MenticsGame {
 	{
 		//EventAcc e(0, at, 0, vect3());
 		//EventUniquePtr<WorldModel, RealTime> e = ;
-		sched.schedule(uniquePtr<EventAcc>(0, at, 0, vect3()));
+		//sched.schedule(uniquePtr<EventAcc>(0, at, 0, vect3()));
 		
 	}
 

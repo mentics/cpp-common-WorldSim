@@ -3,6 +3,7 @@
 #include "CppUnitTest.h"
 #include "MenticsCommon.h"
 #include "World.h"
+#include "Scheduler.cpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std::chrono_literals;
