@@ -55,8 +55,7 @@ namespace MenticsGame {
 
 			std::pair<AgentControlUniquePtr, bool> getAgentControl(AgentId id);
 
-			template <typename TimeType>
-			void createQuip(TimeType at);
+			void createQuip(RealTime at);
 
 		private:
 			

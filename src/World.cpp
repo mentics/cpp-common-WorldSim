@@ -50,11 +50,11 @@ namespace MenticsGame {
 
 	}
 
-	template<typename TimeType>
-	void World::createQuip(TimeType at)
+	void World::createQuip(RealTime at)
 	{
-		EventAcc e(0, at, 0, vect3());
-		sched.schedule(e); 
+		//EventAcc e(0, at, 0, vect3());
+		//EventUniquePtr<WorldModel, RealTime> e = ;
+		sched.schedule(uniquePtr<EventAcc>(0, at, 0, vect3()));
 		
 	}
 

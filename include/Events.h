@@ -20,4 +20,5 @@ namespace MenticsGame {
 		const AgentId agentId;
 		const vect3 dir;
 	};
+	PTRS(EventAcc)
 }
