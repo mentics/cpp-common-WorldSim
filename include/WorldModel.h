@@ -47,8 +47,7 @@ namespace MenticsGame {
 			return nullptr;
 		}
 
-		template <typename TimeType>
-		void createQuip(TimeType at);
+		void createQuip(RealTime at);
 
 		void reset(RealTime resetToTime) {
 			agents.reset(resetToTime);

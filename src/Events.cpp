@@ -3,7 +3,7 @@
 #include "Events.h"
 
 namespace MenticsGame {
-	void EventAcc::run(SchedulatorPtr<RealTime, WorldModel> sched, nn::nn<WorldModel*> model) {
+	void EventAcc::run(SchedulatorPtr<WorldModel, RealTime> sched, nn::nn<WorldModel*> model) {
 		const RealTime LONG_ENOUGH = 50000000; // TODO: how long?
 		//Agent* a = model->agent(agentId);
 		//Trajectory& curTraj = *a->trajectory;

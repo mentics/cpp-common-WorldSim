@@ -2,8 +2,6 @@
 #include <gsl/gsl>
 #include "World.h"
 #include "AgentControl.h"
-#include "Scheduler.h" // This should be the only place that includes this
-#include "WorldModel.h"
 
 
 namespace MenticsGame {
@@ -54,8 +52,7 @@ namespace MenticsGame {
 	{
 		//EventAcc e(0, at, 0, vect3());
 		//EventUniquePtr<WorldModel, RealTime> e = ;
-		//sched.schedule(uniquePtr<EventAcc>(0, at, 0, vect3()));
-		
+		sched.schedule(uniquePtr<EventAcc>(0, at, 0, vect3()));
 	}
 
 	WorldModel* getp(World *w)
