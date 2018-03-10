@@ -14,7 +14,7 @@ namespace MenticsGame {
 	public:
 		//Quip(){}
 		Quip(const AgentId id, UnqSignal<Trajectory, TimeType> trajectory,
-			UnqSignal<float, TimeType> maxEnergy, UnqSignal<float, TimeType> energyRegenRate, UnqSignal<float, TimeType> maxAttention, UnqSignal<float, TimeType> attentionRegenRate, TeamId team = 2)
+			ValueSignal<double, TimeType> maxEnergy, ValueSignal<float, TimeType> energyRegenRate, ValueSignal<double, TimeType> maxAttention, ValueSignal<float, TimeType> attentionRegenRate, TeamId team = 2)
 			: Agent(id, trajectory, team)
 			, maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention), attentionRegenRate(attentionRegenRate)
 			, energy(maxEnergy), attention(maxAttention)
