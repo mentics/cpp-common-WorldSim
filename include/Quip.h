@@ -4,6 +4,7 @@
 #include "Agent.h"
 #include "Resettable.h"
 
+
 namespace MenticsGame {
 	struct QuipHelper;
 	class QuipTest;
@@ -11,19 +12,14 @@ namespace MenticsGame {
 	template<typename TimeType = TimePoint>
 	class Quip : public Agent<TimeType> {
 	public:
-		Quip(){}
-		Quip(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory,
+		//Quip(){}
+		Quip(const AgentId id, nn::nn_unique_ptr<Trajectory> trajectory,
 			float maxEnergy, float energyRegenRate, float maxAttention, float attentionRegenRate, TeamId team = 2)
-			: Agent(id, trajectory, team)
+			: Agent(id, std::move(trajectory), team)
 			, maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention), attentionRegenRate(attentionRegenRate)
-			, energy(maxEnergy, 0), attention(maxAttention, 0)
+			, energy(maxEnergy), attention(maxAttention)
 		{
-			maxEnergy.add(0, 0);
-			energyRegenRate.add(0, 0);
-			maxAttention.add(0, 0);
-			attentionRegenRate.add(0, 0);
-			energy.add(0, 0);
-			attention.add(0, 0);
+			
 		}
 
 		friend QuipHelper;

@@ -47,7 +47,7 @@ namespace MenticsGame {
 			return nullptr;
 		}
 
-		void createQuip(RealTime at);
+		void createQuip(RealTime at); 
 
 		void reset(RealTime resetToTime) {
 			agents.reset(resetToTime);
@@ -55,6 +55,7 @@ namespace MenticsGame {
 		
 		AllAgents agents;
 	private:
+		
 	};
 
 	

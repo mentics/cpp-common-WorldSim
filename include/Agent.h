@@ -22,18 +22,24 @@ namespace MenticsGame {
 
 	template<typename TimeType = TimePoint>
 	struct Agent {
-		Agent() {}
-		Agent(const AgentId id, nn::nn_shared_ptr<Trajectory> trajectory, TeamId team = 2)
-			: id(id), team(team) 
+		//Agent() {}
+		Agent(const AgentId id, nn::nn_unique_ptr<Trajectory> trajectory, TeamId team = 2)
+			: id(id), team(team) trajectory(trajectory)
 		{
-			thoughtPeriod.add(0, 0);
-			trajectory.add(0, 0);
-			team.add(0, 0);
-			reactionTime.add(0, 0);
-			perceptionDelay.add(0, 0);
 		}
 
-		virtual void reset(TimeType resetTime)
+
+		AgentId id;
+		Signal<TimeType,TimeType> thoughtPeriod; // not sure? <TimeType, TimeType>
+		Signal<nn::nn_unique_ptr<Trajectory>, TimeType> trajectory;
+	
+		// Represents which team the agent is on. Used to identify friendlies and enemies. 
+		// Default value is 2 for enemy team.Value is 1 for single player's team.
+		Signal<TeamId, TimeType> team;
+		Signal<TimeType> reactionTime;
+		Signal<TimeType> perceptionDelay;
+
+		void reset(TimeType resetTime)
 		{
 			thoughtPeriod.reset(resetTime);
 			trajectory.reset(resetTime);
@@ -41,23 +47,14 @@ namespace MenticsGame {
 			reactionTime.reset(resetTime);
 			perceptionDelay.reset(resetTime);
 		}
-
-		AgentId id;
-		Signal<TimeType,TimeType> thoughtPeriod; // not sure? <TimeType, TimeType>
-		Signal<Trajectory*, TimeType> trajectory;
-	
-		// Represents which team the agent is on. Used to identify friendlies and enemies. 
-		// Default value is 2 for enemy team.Value is 1 for single player's team.
-		Signal<TeamId, TimeType> team;
-		Signal<TimeType> reactionTime; 
-		Signal<TimeType> perceptionDelay;
 		//virtual ~Agent() = 0;
 	};
 	PTRS1(Agent, TimeType)
 
 	class Boss : public Agent<> {};
-	class Minion : public Agent<> {};
 	class Shot : public Agent<> {};
+	class Minion : public Agent<> {};
+	
 
 	
 
