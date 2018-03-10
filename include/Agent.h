@@ -23,7 +23,7 @@ namespace MenticsGame {
 	template<typename TimeType = TimePoint>
 	struct Agent {
 		//Agent() {}
-		Agent(const AgentId id, nn::nn_unique_ptr<Trajectory> trajectory, TeamId team = 2)
+		Agent(const AgentId id, Signal<TrajectoryUniquePtr, TimeType>, TeamId team = 2)
 			: id(id), team(team) trajectory(trajectory)
 		{
 		}

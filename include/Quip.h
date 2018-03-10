@@ -13,9 +13,9 @@ namespace MenticsGame {
 	class Quip : public Agent<TimeType> {
 	public:
 		//Quip(){}
-		Quip(const AgentId id, nn::nn_unique_ptr<Trajectory> trajectory,
+		Quip(const AgentId id, Signal<TrajectoryUniquePtr, TimeType>,
 			float maxEnergy, float energyRegenRate, float maxAttention, float attentionRegenRate, TeamId team = 2)
-			: Agent(id, std::move(trajectory), team)
+			: Agent(id, trajectory, team)
 			, maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention), attentionRegenRate(attentionRegenRate)
 			, energy(maxEnergy), attention(maxAttention)
 		{
