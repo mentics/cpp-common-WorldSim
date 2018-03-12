@@ -13,9 +13,9 @@ namespace MenticsGame {
 	class WorldModel;
 	PTRS(WorldModel)
 
-	class AllAgents
+	struct AllAgents
 	{
-		PREVENT_COPY(AllAgents);
+		ONLY_MOVE(AllAgents);
 	public:
 		SignalCollection<Boss, RealTime> bosses;
 		SignalCollection<Minion, RealTime> minions;  
@@ -44,16 +44,8 @@ namespace MenticsGame {
 	};
 
 	class WorldModel {
-		PREVENT_COPY(WorldModel);
 	public:
 		WorldModel() {}
-		
-		Agent<RealTime>* agent(AgentId id) {
-			//return id < agents.size() ? &agents[id] : nullptr; // need size() for this 
-			return nullptr;
-		}
-
-		
 
 		void createQuip(RealTime at); 
 
@@ -63,7 +55,7 @@ namespace MenticsGame {
 		
 		AllAgents agents;
 	private:
-		
+		ONLY_MOVE(WorldModel);
 	};
 
 	

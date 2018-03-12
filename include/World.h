@@ -38,7 +38,6 @@ namespace MenticsGame {
 		
 
 		class World {
-			PREVENT_COPY(World);
 		public:
 			World(RealTime userInputDelay) : userInputDelay(userInputDelay), timeProv(), schedModel("SchedulerModel"), sched("Scheduler", nn::nn_addr(schedModel),nn::nn_addr(timeProv),nn::nn_addr(model))
 			{
@@ -60,7 +59,8 @@ namespace MenticsGame {
 			void createQuip(RealTime at);
 
 		private:
-			
+			ONLY_MOVE(World);
+
 			friend  WorldModel* getp(World *);
 			friend Scheduler<WorldModel, RealTime>* getpSched(World *);
 

@@ -11,10 +11,7 @@ namespace MenticsGame {
 
 	template<typename TimeType = TimePoint>
 	class Quip : public Agent<TimeType> {
-		PREVENT_COPY(Quip);
-
 	public:
-		Quip(Quip<TimeType>&&) = default;
 		Quip(const AgentId id, TrajectoryUniquePtr&& trajectory,
 				float maxEnergy, float energyRegenRate,
 				float maxAttention, float attentionRegenRate,
@@ -40,6 +37,8 @@ namespace MenticsGame {
 			attention.reset(resetTime);
 		}
 	private:
+		ONLY_MOVE(Quip);
+
 		SignalValue<float, TimeType> maxEnergy;			// The current maximum energy this Quip can have.
 		SignalValue<float, TimeType> energyRegenRate;		// The current rate at which this Quip regenerates energy.
 		SignalValue<float, TimeType> maxAttention;			// The current maximum attention this Quip can have.

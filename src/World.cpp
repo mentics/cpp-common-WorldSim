@@ -39,13 +39,13 @@ namespace MenticsGame {
 	}
 
 	std::pair<AgentControlUniquePtr, bool> World::getAgentControl(AgentId id) {
-		if (model.agent(id)) {
-			return std::make_pair(nn::nn_make_unique<AgentControl>(id, nn::nn_addr(sched), nn::nn_addr(timeProv)), true);
-		}
-		else {
+		// TODO
+		//if (model.agent(id)) {
+		//	return std::make_pair(nn::nn_make_unique<AgentControl>(id, nn::nn_addr(sched), nn::nn_addr(timeProv)), true);
+		//}
+		//else {
 			return std::make_pair(nn::nn_make_unique<AgentControl>(-1, nn::nn_addr(sched), nn::nn_addr(timeProv)), false);
-		}
-
+		//}
 	}
 
 	void World::createQuip(RealTime at)
