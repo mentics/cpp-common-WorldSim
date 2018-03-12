@@ -14,7 +14,7 @@ namespace MenticsGame {
 		PREVENT_COPY(Quip);
 
 	public:
-		Quip(Quip&&) = default;
+		Quip(Quip<TimeType>&&) = default;
 		Quip(const AgentId id, TrajectoryUniquePtr&& trajectory,
 				float maxEnergy, float energyRegenRate,
 				float maxAttention, float attentionRegenRate,
