@@ -23,10 +23,10 @@ namespace MenticsGame {
 		template <typename TimeType = TimePoint>
 		void forEach(std::function<void(Agent<>*)> f, TimeType now)
 		{
-			bosses.forEach(now, [=](Boss* b) {f(b); });
-			minions.forEach(now, [=](Minion* b) {f(b); });
-			shots.forEach(now, [=](Shot* b) {f(b); });
-			quips.forEach(now, [=](Quip<>* b) {f(b); });
+			bosses.forEach(now, f );
+			minions.forEach(now,f);
+			shots.forEach(now, f);
+			quips.forEach(now, f);
 		}
 
 		

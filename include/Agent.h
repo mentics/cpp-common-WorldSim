@@ -23,22 +23,21 @@ namespace MenticsGame {
 	template<typename TimeType = TimePoint>
 	struct Agent {
 		//Agent() {}
-		Agent(const AgentId id, Signal<TrajectoryUniquePtr, TimeType>, TeamId team = 2)
-			: id(id), team(team) trajectory(trajectory)
+		Agent(const AgentId id, SignalUnique<Trajectory, TimeType> trajectory, TeamId team = 2)
+			: id(id), team(team), trajectory(trajectory), thoughtPeriod(0), reactionTime(0), perceptionDelay(0)
 		{
 		}
 
-
 		AgentId id;
-		Signal<TimeType,TimeType> thoughtPeriod; // not sure? <TimeType, TimeType>
-		Signal<nn::nn_unique_ptr<Trajectory>, TimeType> trajectory;
-	
+		SignalValue<uint64_t,TimeType> thoughtPeriod; // not sure? <TimeType, TimeType>
+		SignalUnique<Trajectory, TimeType> trajectory;
+		
 		// Represents which team the agent is on. Used to identify friendlies and enemies. 
 		// Default value is 2 for enemy team.Value is 1 for single player's team.
-		Signal<TeamId, TimeType> team;
-		Signal<TimeType> reactionTime;
-		Signal<TimeType> perceptionDelay;
-
+		SignalValue<TeamId, TimeType> team;
+		SignalValue<TimeType> reactionTime;
+		SignalValue<TimeType> perceptionDelay;
+		
 		void reset(TimeType resetTime)
 		{
 			thoughtPeriod.reset(resetTime);

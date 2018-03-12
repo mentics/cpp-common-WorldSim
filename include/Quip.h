@@ -13,8 +13,8 @@ namespace MenticsGame {
 	class Quip : public Agent<TimeType> {
 	public:
 		//Quip(){}
-		Quip(const AgentId id, UnqSignal<Trajectory, TimeType> trajectory,
-			ValueSignal<double, TimeType> maxEnergy, ValueSignal<float, TimeType> energyRegenRate, ValueSignal<double, TimeType> maxAttention, ValueSignal<float, TimeType> attentionRegenRate, TeamId team = 2)
+		Quip(const AgentId id, SignalUnique<Trajectory, TimeType> trajectory,
+			SignalValue<float, TimeType> maxEnergy, SignalValue<float, TimeType> energyRegenRate, SignalValue<float, TimeType> maxAttention, SignalValue<float, TimeType> attentionRegenRate, TeamId team = 2)
 			: Agent(id, trajectory, team)
 			, maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention), attentionRegenRate(attentionRegenRate)
 			, energy(maxEnergy), attention(maxAttention)
@@ -36,13 +36,13 @@ namespace MenticsGame {
 			attention.reset(resetTime);
 		}
 	private:
-		ValueSignal<float, TimeType> maxEnergy;			// The current maximum energy this Quip can have.
-		ValueSignal<float, TimeType> energyRegenRate;		// The current rate at which this Quip regenerates energy.
-		ValueSignal<float, TimeType> maxAttention;			// The current maximum attention this Quip can have.
-		ValueSignal<float, TimeType> attentionRegenRate;	// The current rate at which this Quip regenerates attention.
+		SignalValue<float, TimeType> maxEnergy;			// The current maximum energy this Quip can have.
+		SignalValue<float, TimeType> energyRegenRate;		// The current rate at which this Quip regenerates energy.
+		SignalValue<float, TimeType> maxAttention;			// The current maximum attention this Quip can have.
+		SignalValue<float, TimeType> attentionRegenRate;	// The current rate at which this Quip regenerates attention.
 		
-		ValueSignal<double, TimeType> energy;
-		ValueSignal<double, TimeType> attention;
+		SignalValue<float, TimeType> energy;
+		SignalValue<float, TimeType> attention;
 	};
 
 }	
