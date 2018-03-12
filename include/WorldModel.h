@@ -42,10 +42,14 @@ namespace MenticsGame {
 
 	class WorldModel {
 	public:
+		
+		PREVENT_COPY(WorldModel);
 		Agent<RealTime>* agent(AgentId id) {
 			//return id < agents.size() ? &agents[id] : nullptr; // need size() for this 
 			return nullptr;
 		}
+
+		
 
 		void createQuip(RealTime at); 
 
