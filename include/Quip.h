@@ -11,13 +11,17 @@ namespace MenticsGame {
 
 	template<typename TimeType = TimePoint>
 	class Quip : public Agent<TimeType> {
+		PREVENT_COPY(Quip);
+
 	public:
-		//Quip(){}
-		Quip(const AgentId id, TrajectoryUniquePtr trajectory,
-			SignalValue<float, TimeType> maxEnergy, SignalValue<float, TimeType> energyRegenRate, SignalValue<float, TimeType> maxAttention, SignalValue<float, TimeType> attentionRegenRate, TeamId team = 2)
-			: Agent(id,trajectory, team)
-			, maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention), attentionRegenRate(attentionRegenRate)
-			, energy(maxEnergy), attention(maxAttention)
+		Quip(Quip&&) = default;
+		Quip(const AgentId id, TrajectoryUniquePtr&& trajectory,
+				float maxEnergy, float energyRegenRate,
+				float maxAttention, float attentionRegenRate,
+				TeamId team = 2)
+					: Agent(id, std::move(trajectory), team),
+						maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention),
+						attentionRegenRate(attentionRegenRate), energy(maxEnergy), attention(maxAttention)
 		{
 			
 		}

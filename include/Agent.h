@@ -23,8 +23,8 @@ namespace MenticsGame {
 	template<typename TimeType = TimePoint>
 	struct Agent {
 		//Agent() {}
-		Agent(const AgentId id,TrajectoryUniquePtr trajectory, TeamId team = 2)
-			: id(id), team(team), trajectory(trajectory), thoughtPeriod(0), reactionTime(0), perceptionDelay(0)
+		Agent(const AgentId id, TrajectoryUniquePtr&& trajectory, TeamId team = 2)
+			: id(id), team(team), trajectory(std::move(trajectory)), thoughtPeriod(0), reactionTime(0), perceptionDelay(0)
 		{
 		}
 

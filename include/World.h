@@ -38,10 +38,9 @@ namespace MenticsGame {
 		
 
 		class World {
-		public:
 			PREVENT_COPY(World);
-			World(RealTime userInputDelay) : userInputDelay(userInputDelay), timeProv(),
-				 model(), schedModel("SchedulerModel"), sched("Scheduler", nn::nn_addr(schedModel),nn::nn_addr(timeProv),nn::nn_addr(model))
+		public:
+			World(RealTime userInputDelay) : userInputDelay(userInputDelay), timeProv(), schedModel("SchedulerModel"), sched("Scheduler", nn::nn_addr(schedModel),nn::nn_addr(timeProv),nn::nn_addr(model))
 			{
 			}
 

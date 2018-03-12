@@ -5,9 +5,7 @@ namespace MenticsGame {
 
 void WorldModel::createQuip(RealTime at)            
 {
-	Quip<RealTime> q(0,makeTrajZero(), 0,0,0,0);                                   
-
-	agents.quips.add(q,at);
+	agents.quips.add(Quip<RealTime>(0, makeTrajZero(), 0, 0, 0, 0),at);
 }
 
 }

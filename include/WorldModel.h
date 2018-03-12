@@ -13,12 +13,16 @@ namespace MenticsGame {
 	class WorldModel;
 	PTRS(WorldModel)
 
-	struct AllAgents
-	{ 
+	class AllAgents
+	{
+		PREVENT_COPY(AllAgents);
+	public:
 		SignalCollection<Boss, RealTime> bosses;
 		SignalCollection<Minion, RealTime> minions;  
 		SignalCollection<Shot, RealTime> shots;
 		SignalCollection<Quip<RealTime>, RealTime> quips;
+
+		AllAgents() {}
 
 		template <typename TimeType = TimePoint>
 		void forEach(std::function<void(Agent<>*)> f, TimeType now)
@@ -37,13 +41,13 @@ namespace MenticsGame {
 			shots.reset(at);
 			quips.reset(at);
 		}
-
 	};
 
 	class WorldModel {
-	public:
-		
 		PREVENT_COPY(WorldModel);
+	public:
+		WorldModel() {}
+		
 		Agent<RealTime>* agent(AgentId id) {
 			//return id < agents.size() ? &agents[id] : nullptr; // need size() for this 
 			return nullptr;
