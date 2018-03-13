@@ -13,7 +13,7 @@ namespace MenticsGame {
 	//}
 
 	void World::setTimeScale(double newTimeScale) {
-		timeProv.timeScale = newTimeScale;
+		timeProv.setTimeScale(newTimeScale);
 		sched.wakeUp();
 	}
 	
@@ -23,8 +23,7 @@ namespace MenticsGame {
 	}
 
 	RealTime  RealTimeProvider::now() {
-		RealTime nanos = currentTimeNanos();
-		RealTime millis = currentTimeMillis();
+		RealTime nanos = (currentTimeNanos() - lastChangeClock) * timeScale;
 		return nanos;
 	}
 

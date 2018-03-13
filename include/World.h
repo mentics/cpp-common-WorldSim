@@ -16,14 +16,19 @@ namespace MenticsGame {
 
 	struct RealTimeProvider : public SchedulerTimeProvider<RealTime> {
 		RealTime max = 2000000000000;
-		RealTime lastChange = 0;
+		RealTime lastChangeClock = 0;
 		double timeScale = 0; // Always start paused
 
-		RealTime now();
-
-		inline RealTime maxTimeAhead() {
-			return max;
+		RealTimeProvider() {
+			lastChangeClock = currentTimeNanos();
 		}
+
+		void setTimeScale(RealTime newTimeScale) {
+			lastChangeClock = currentTimeNanos();
+			timeScale = newTimeScale;
+		}
+
+		RealTime now();
 
 		inline chrono::nanoseconds realTimeUntil(RealTime t) {
 			if (timeScale == 0) {
@@ -55,6 +60,7 @@ namespace MenticsGame {
 
 			std::pair<AgentControlUniquePtr, bool> getAgentControl(AgentId id);
 
+			RealTime getGameTime() { return timeProv.now(); }
 			
 			void createQuip(RealTime at);
 
