@@ -30,12 +30,17 @@ namespace MenticsGame {
 
 		RealTime now();
 
-		inline chrono::nanoseconds realTimeUntil(RealTime t) {
+		inline chrono::nanoseconds realTimeUntil(RealTime toGameTime) {
 			if (timeScale == 0) {
 				return chrono::nanoseconds((RealTime)FOREVER);
 			}
-			RealTime now = currentTimeNanos();
-			return chrono::nanoseconds((RealTime)trunc((t - now) / timeScale));
+			RealTime toWait = toGameTime - now();
+			double v = (double)toWait / timeScale;
+			if (v > FOREVER || v < 0) {
+				return chrono::nanoseconds((RealTime)FOREVER);
+			} else {
+				return chrono::nanoseconds((RealTime)v);
+			}
 		}
 	};
 	PTRS(RealTimeProvider)
