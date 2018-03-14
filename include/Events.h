@@ -8,7 +8,7 @@
 
 namespace MenticsGame {
 
-class EventCreateQuip : Event<WorldModel, RealTime>
+class EventCreateQuip : public Event<WorldModel, RealTime>
 {
 	TrajectoryUniquePtr traj;
 public:
