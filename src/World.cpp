@@ -47,9 +47,9 @@ namespace MenticsGame {
 		//}
 	}
 
-	void World::createQuip(RealTime at)
+	void World::createQuip(RealTime at, TrajectoryUniquePtr&& traj)
 	{
-		sched.schedule(uniquePtr<EventAcc>(0, at, 0, vect3(0,0,0)));
+		sched.schedule(uniquePtr<EventCreateQuip>(getGameTime(), at, traj));
 	}
 
 	WorldModel* getp(World *w)

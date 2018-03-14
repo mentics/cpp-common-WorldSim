@@ -13,7 +13,6 @@ namespace MenticsGame {
 		//}
 		//vect3 pos;
 		//vect3 vel;
-		model->createQuip(static_cast<RealTime>(this->created));
 		
 		//curTraj.posVel(timeToRun, pos, vel);
 		//nn::nn_shared_ptr<Trajectory> newTraj = nn::nn_make_shared<BasicTrajectory>(timeToRun, FOREVER, pos, vel, dir);

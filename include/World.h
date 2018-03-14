@@ -67,7 +67,7 @@ namespace MenticsGame {
 
 			RealTime getGameTime() { return timeProv.now(); }
 			
-			void createQuip(RealTime at);
+			void createQuip(RealTime at, TrajectoryUniquePtr&& traj);
 
 		private:
 			ONLY_MOVE(World);
