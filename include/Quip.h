@@ -16,7 +16,7 @@ namespace MenticsGame {
 				float maxEnergy, float energyRegenRate,
 				float maxAttention, float attentionRegenRate,
 				TeamId team = 2)
-					: Agent(id, std::move(trajectory), team),
+					: Agent(id, std::move(trajectory), team), //  std::move(trajectory)
 						maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention),
 						attentionRegenRate(attentionRegenRate), energy(maxEnergy), attention(maxAttention)
 		{

@@ -49,9 +49,7 @@ namespace MenticsGame {
 
 	void World::createQuip(RealTime at)
 	{
-		//EventAcc e(0, at, 0, vect3());
-		//EventUniquePtr<WorldModel, RealTime> e = ;
-		sched.schedule(uniquePtr<EventAcc>(0, at, 0, vect3()));
+		sched.schedule(uniquePtr<EventAcc>(0, at, 0, vect3(0,0,0)));
 	}
 
 	WorldModel* getp(World *w)
