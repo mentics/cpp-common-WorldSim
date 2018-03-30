@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "CppUnitTest.h"
-#include "MenticsCommon.h"
+#include "MenticsCommonTest.h"
 #include "World.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
