@@ -19,18 +19,18 @@ namespace MenticsGame {
 		AgentId agentId;
 		PosVelAcc pva;
 	};
-
+	
 	template<typename TimeType = TimePoint>
 	struct Agent {
 		Agent(Agent<TimeType>&&) = default;
-		//Agent() {}
+		
 		Agent(const AgentId id, TrajectoryUniquePtr&& trajectory, TeamId team = 2)
 			: id(id), team(team), trajectory(std::move(trajectory)), thoughtPeriod(0), reactionTime(0), perceptionDelay(0)
 		{
 		}
 
 		AgentId id;
-		SignalValue<uint64_t,TimeType> thoughtPeriod; // not sure? <TimeType, TimeType>
+		SignalValue<uint64_t,TimeType> thoughtPeriod; 
 		SignalUnique<Trajectory, TimeType> trajectory;
 		
 		// Represents which team the agent is on. Used to identify friendlies and enemies. 
@@ -58,10 +58,6 @@ namespace MenticsGame {
 
 	
 
-	//PTRS(Agent<typename TimeType>)     
-
-		// just so Agent is abstract, replace once any function gets added 
-		//Agent::~Agent() {} //  Causes errors because other parts of the code do instantiate it, we should find them and change them
 
 
 	
