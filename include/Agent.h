@@ -47,13 +47,29 @@ namespace MenticsGame {
 			reactionTime.reset(resetTime);
 			perceptionDelay.reset(resetTime);
 		}
-		//virtual ~Agent() = 0;
+		
 	};
 	PTRS1(Agent, TimeType)
 
-	class Boss : public Agent<> {};
-	class Shot : public Agent<> {};
-	class Minion : public Agent<> {};
+
+	class FullAgent : public Agent<>
+	{
+	public:
+		FullAgent(const AgentId id, TrajectoryUniquePtr&& trajectory)
+			: Agent(id, std::move(trajectory)) 
+		{
+		}
+	};
+
+	class Boss : public FullAgent {
+	public:
+		Boss(const AgentId id, TrajectoryUniquePtr&& trajectory)
+			: FullAgent(id, std::move(trajectory)) 
+		{} 
+
+	};
+	class Shot : public FullAgent {};
+	class Minion : public FullAgent {};
 	
 
 	

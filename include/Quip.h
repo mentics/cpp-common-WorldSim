@@ -1,5 +1,6 @@
 #pragma once
 
+#include "MenticsCommon.h"
 #include "Signal.h"
 #include "Agent.h"
 #include "Resettable.h"
@@ -16,7 +17,7 @@ namespace MenticsGame {
 				float maxEnergy, float energyRegenRate,
 				float maxAttention, float attentionRegenRate,
 				TeamId team = 2)
-					: Agent(id, std::move(trajectory), team), //  std::move(trajectory)
+					: Agent(id, std::move(trajectory), team), 
 						maxEnergy(maxEnergy), energyRegenRate(energyRegenRate), maxAttention(maxAttention),
 						attentionRegenRate(attentionRegenRate), energy(maxEnergy), attention(maxAttention)
 		{
@@ -39,7 +40,7 @@ namespace MenticsGame {
 	private:
 		ONLY_MOVE(Quip);
 
-		SignalValue<float, TimeType> maxEnergy;			// The current maximum energy this Quip can have.
+		SignalValue<float, TimeType> maxEnergy;			    // The current maximum energy this Quip can have.
 		SignalValue<float, TimeType> energyRegenRate;		// The current rate at which this Quip regenerates energy.
 		SignalValue<float, TimeType> maxAttention;			// The current maximum attention this Quip can have.
 		SignalValue<float, TimeType> attentionRegenRate;	// The current rate at which this Quip regenerates attention.
@@ -48,4 +49,6 @@ namespace MenticsGame {
 		SignalValue<float, TimeType> attention;
 	};
 
+	using QuipPtr = nn::nn<Quip<>*>; \
+	using QuipUniquePtr = nn::nn<std::unique_ptr<Quip<>> >;
 }	
