@@ -47,7 +47,7 @@ namespace MenticsGame {
 	public:
 		WorldModel() {}
 
-		void createQuip(RealTime at, TrajectoryUniquePtr&& traj); 
+		QuipPtr createQuip(RealTime at, TrajectoryUniquePtr&& traj, std::string name); 
 
 		void reset(RealTime resetToTime) {
 			agents.reset(resetToTime);

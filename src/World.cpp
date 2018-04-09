@@ -2,7 +2,8 @@
 #include <gsl/gsl>
 #include "World.h"
 #include "AgentControl.h"
-
+#include "Scheduler.cpp"
+#include "Agent.h"
 
 namespace MenticsGame {
 	//World<RealTime>* theWorld;
@@ -47,10 +48,24 @@ namespace MenticsGame {
 		//}
 	}
 
-	void World::createQuip(RealTime at, TrajectoryUniquePtr&& traj)
+	void World::createQuip(RealTime at, TrajectoryUniquePtr&& traj, std::string name)
 	{
-		sched.schedule(uniquePtr<EventCreateQuip>(getGameTime(), at, std::move(traj)));
+		sched.schedule(uniquePtr<EventCreateQuip>(getGameTime(), at, std::move(traj), name)); 
 	}
+
+	void World::run()
+	{
+		sched.getSchedModel()->consumeOutgoing([&](OutEventPtr<TimePoint> &e)
+		{
+			if (e->name == "player") 
+			{
+				//takeControl(e->quip); 
+			}  
+		}, 100);
+		
+	}
+
+	void takeControl(AgentUniquePtr<TimePoint> a);  
 
 	WorldModel* getp(World *w)
 	{

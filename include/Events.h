@@ -11,13 +11,16 @@ namespace MenticsGame {
 class EventCreateQuip : public Event<WorldModel, RealTime>
 {
 	TrajectoryUniquePtr traj;
+	
 public:
-	EventCreateQuip(const RealTime created, const RealTime timeToRun, TrajectoryUniquePtr&& initTraj) : Event(created, timeToRun), traj(std::move(initTraj)) {
+	std::string name;
+
+	EventCreateQuip(const RealTime created, const RealTime timeToRun, TrajectoryUniquePtr&& initTraj, std::string name) : Event(created, timeToRun), traj(std::move(initTraj)) , name(name){
 	};
 
 	void run(SchedulatorPtr<WorldModel, RealTime> sched, nn::nn<WorldModel*> model) override
 	{
-		model->createQuip(created, std::move(traj));
+		sched->addOutEvent( nn::nn_make_unique<OutEvent<>>( OutEvent<>(timeToRun, name, model->createQuip(created, std::move(traj), name)))); 
 	}
 };
 
