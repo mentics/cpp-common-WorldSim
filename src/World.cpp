@@ -53,19 +53,31 @@ namespace MenticsGame {
 		sched.schedule(uniquePtr<EventCreateQuip>(getGameTime(), at, std::move(traj), name)); 
 	}
 
+
+
+
+	void World::takeControl(AgentPtr<TimePoint> a) 
+	{
+		player = a;
+	}
+
 	void World::run()
 	{
 		sched.getSchedModel()->consumeOutgoing([&](OutEventPtr<TimePoint> &e)
 		{
 			if (e->name == "player") 
 			{
-				//takeControl(e->quip); 
+				takeControl(e->quip); 
 			}  
 		}, 100);
 		
 	}
 
-	void takeControl(AgentUniquePtr<TimePoint> a);  
+
+	void World::arriveTrajectory(AgentId id, float dist) 
+	{
+
+	}
 
 	WorldModel* getp(World *w)
 	{

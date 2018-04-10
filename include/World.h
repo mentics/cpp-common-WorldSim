@@ -69,7 +69,9 @@ namespace MenticsGame {
 			
 			void createQuip(RealTime at, TrajectoryUniquePtr&& traj, std::string name);
 			void run(); 
-
+			void arriveTrajectory(AgentId, float); 
+			void takeControl(AgentPtr<TimePoint> a);
+			Agent<>* player;
 		private:
 			ONLY_MOVE(World);
 
