@@ -68,8 +68,8 @@ namespace MenticsGame {
 			RealTime getGameTime() { return timeProv.now(); }
 			
 			void createQuip(RealTime at, TrajectoryUniquePtr&& traj, std::string name);
-			void run(); 
-			void arriveTrajectory(AgentId, float); 
+			void run();
+			void arrive(AgentPtr<TimePoint> agent, AgentPtr<TimePoint> target, double distance, RealTime at);
 			void takeControl(AgentPtr<TimePoint> a);
 			Agent<>* player;
 		private:

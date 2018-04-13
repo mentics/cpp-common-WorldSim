@@ -4,6 +4,7 @@
 #include "AgentControl.h"
 #include "Scheduler.cpp"
 #include "Agent.h"
+#include "TrajectoryCalculator.h"
 
 namespace MenticsGame {
 	//World<RealTime>* theWorld;
@@ -72,12 +73,12 @@ namespace MenticsGame {
 		}, 100);
 		
 	}
-
-
-	void World::arriveTrajectory(AgentId id, float dist) 
+	 
+	void World::arrive(AgentPtr<TimePoint> agent, AgentPtr<TimePoint> target, double distance, RealTime at)
 	{
-
+		sched.schedule(uniquePtr<EventCmdArrive>(getGameTime(), at, agent, target, distance ));  
 	}
+
 
 	WorldModel* getp(World *w)
 	{
