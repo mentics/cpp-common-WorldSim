@@ -76,7 +76,7 @@ namespace MenticsGame {
 	 
 	void World::arrive(AgentPtr<TimePoint> agent, AgentPtr<TimePoint> target, double distance, RealTime at)
 	{
-		sched.schedule(uniquePtr<EventCmdArrive>(getGameTime(), at, agent, target, distance ));  
+		sched.schedule(uniquePtr<EventCmdArrive>(getGameTime(), at, agent, target, distance ));      
 	}
 
 

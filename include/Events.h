@@ -25,7 +25,7 @@ public:
 	}
 };
 
-class EventCmdArrive : Event<WorldModel, RealTime>
+class EventCmdArrive : public Event<WorldModel, RealTime>
 {
 	AgentPtr<TimePoint> agentTraj;
 	AgentPtr<TimePoint> targetTraj;
