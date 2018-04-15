@@ -11,7 +11,7 @@ void AgentControl<TimeType>::arrive(const AgentP agent, const AgentP target, dou
 
 template<typename TimeType>
 void AgentControl<TimeType>::tempAcc(const vect3& dir) {
-	sched->schedule(uniquePtr<CmdAcc>(now, now + inputTimeDelay, agentId, dir));
+	sched->schedule(inputDelay, uniquePtr<CmdAcc>(agentId, dir));
 }
 
 }

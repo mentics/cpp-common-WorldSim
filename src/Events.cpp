@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include "Events.h"
+#include "OutEvents.h"
 #include "TrajectoryCalculator.h"
 
 namespace MenticsGame {
 
 template<typename TimeType>
 void EventCreateQuip<TimeType>::run(SchedulatorPtr<WorldModel<TimeType>, TimeType> sched, nn::nn<WorldModel<TimeType>*> model) {
-	sched->addOutEvent(nn::nn_make_unique<OutEvent<>>(OutEvent<>(timeToRun, name, model->createQuip(created, std::move(traj), name))));
+	sched->addOutEvent(nn::nn_make_unique<QuipCreated<TimeType>>(timeToRun,
+			model->createQuip(created, std::move(traj), name)));
 }
 
 template<typename TimeType>

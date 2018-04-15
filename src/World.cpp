@@ -2,7 +2,7 @@
 #include <gsl/gsl>
 #include "World.h"
 #include "AgentControl.h"
-#include "Scheduler.cpp"
+//#include "Scheduler.cpp"
 #include "Agent.h"
 #include "TrajectoryCalculator.h"
 #include "Events.h"
@@ -29,8 +29,8 @@ AgentIndex World::allAgentsData(gsl::span<AgentPosVelAcc> buffer) {
 	return index;
 }
 
-void World::createQuip(RealTime at, TrajectoryUniquePtr&& traj, std::string name) {
-	sched.schedule(uniquePtr<EventCreateQuip<RealTime>>(std::move(traj), name)); 
+void World::createQuip(RealTime afterDuration, TrajectoryUniquePtr&& traj, std::string name) {
+	sched.schedule(afterDuration, uniquePtr<EventCreateQuip<RealTime>>(std::move(traj), name));
 }
 
 void World::takeControl(AgentPtr<TimePoint> a) {
@@ -39,8 +39,7 @@ void World::takeControl(AgentPtr<TimePoint> a) {
 }
 
 void World::consumeOutgoing(std::function<void(OutEventPtr<RealTime>)> handler, RealTime upToTime) {
-	sched.getSchedModel()->consumeOutgoing(handler, upToTime);
-		
+	sched.consumeOutgoing(handler, upToTime);
 }
 
 }

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Agent.h"
+#include "Scheduler.h"
+#include "WorldModel.h"
 
 namespace MenticsGame {
 

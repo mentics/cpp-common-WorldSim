@@ -18,8 +18,8 @@ public:
 	AllAgents() {}
 
 	void forEach(std::function<void(AgentPtr<TimeType>)> f, TimeType now) {
-		bosses.forEach(now, f );
-		minions.forEach(now,f);
+		bosses.forEach(now, f);
+		minions.forEach(now, f);
 		shots.forEach(now, f);
 		quips.forEach(now, f);
 	}

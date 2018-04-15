@@ -17,7 +17,7 @@ public:
 	}
 
 	TEST_METHOD(TestWorldSim) {
-		World w(0);
+		World w();
 	}
 
 	

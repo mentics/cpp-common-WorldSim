@@ -48,9 +48,7 @@ class World {
 	WorldModel<RealTime> model;
 
 public:
-	World(RealTime userInputDelay)
-			: timeProv(), schedModel("SchedulerModel"),
-			  sched("Scheduler", nn::nn_addr(schedModel), nn::nn_addr(timeProv), nn::nn_addr(model)) {}
+	World() : timeProv(), schedModel(), sched(nn::nn_addr(schedModel), nn::nn_addr(timeProv), nn::nn_addr(model)) {}
 
 	void setTimeScale(double newTimeScale);
 

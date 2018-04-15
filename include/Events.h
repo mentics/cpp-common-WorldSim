@@ -4,6 +4,7 @@
 #include "MenticsMath.h"
 #include "Agent.h"
 #include "Scheduler.h"
+#include "WorldModel.h"
 
 namespace MenticsGame {
 
@@ -13,9 +14,7 @@ class EventCreateQuip : public Event<WorldModel<TimeType>, TimeType> {
 	const std::string name;
 
 public:
-	EventCreateQuip(const TimeType created, const TimeType timeToRun, TrajectoryUniquePtr&& initTraj, std::string name)
-			//: Event(created, timeToRun)
-			: traj(std::move(initTraj)), name(name) {}
+	EventCreateQuip(TrajectoryUniquePtr&& initTraj, std::string name) : traj(std::move(initTraj)), name(name) {}
 
 	void run(SchedulatorPtr<WorldModel<TimeType>, TimeType> sched, nn::nn<WorldModel<TimeType>*> model) override;
 };
@@ -27,9 +26,7 @@ class CmdArrive : public Event<WorldModel<TimeType>, TimeType> {
 	double dist;
 
 public:
-	CmdArrive(AgentPtr<TimeType> agent, AgentPtr<TimeType> target, double dist)
-			//: Event(created, timeToRun),
-			: agent(agent), target(target), dist(dist) {}
+	CmdArrive(AgentPtr<TimeType> agent, AgentPtr<TimeType> target, double dist) : agent(agent), target(target), dist(dist) {}
 
 	void run(SchedulatorPtr<WorldModel<TimeType>, TimeType> sched, nn::nn<WorldModel<TimeType>*> model) override;
 };
@@ -40,10 +37,7 @@ class CmdAcc : public Event<WorldModel<TimeType>, TimeType> {
 	const vect3 dir;
 
 public:
-	CmdAcc(const TimeType created, const TimeType timeToRun, const AgentPtr<TimeType> agent, const vect3 dir)
-			//: Event(created, timeToRun)
-			: agent(agent), dir(dir) {}
-
+	CmdAcc(const AgentPtr<TimeType> agent, const vect3 dir) : agent(agent), dir(dir) {}
 	void run(SchedulatorPtr<WorldModel<TimeType>, TimeType> sched, nn::nn<WorldModel<TimeType>*> model) override;
 };
 
