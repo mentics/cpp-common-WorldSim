@@ -3,15 +3,15 @@
 #include "Events.h"
 
 namespace MenticsGame {
-	void AgentControl::tempAcc(const vect3& dir) {
-		RealTime now = timeProv->now();
-		//sched->schedule(uniquePtr<EventAcc>(now, now + inputTimeDelay, agentId, dir)); // inputTimeDelay not a member anymore
-	}
 
-	//void AgentControl::scheduleNext(AIController<WorldModel, RealTime>* contr)
-	//{
-	//	
-	//}
+template<typename TimeType>
+void AgentControl<TimeType>::arrive(const AgentP agent, const AgentP target, double distance) {
+	sched->schedule(inputDelay, uniquePtr<CmdArrive>(agent, target, distance));
+}
 
-	
+template<typename TimeType>
+void AgentControl<TimeType>::tempAcc(const vect3& dir) {
+	sched->schedule(uniquePtr<CmdAcc>(now, now + inputTimeDelay, agentId, dir));
+}
+
 }

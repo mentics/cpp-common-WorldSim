@@ -1,62 +1,54 @@
 #pragma once
 
-#include "MenticsCommon.h"
 #include "Agent.h"
 #include "Quip.h"
 #include "Signal.h"
 
-
-
 namespace MenticsGame {
-	typedef uint64_t RealTime; // nanoseconds
 
-	class WorldModel;
-	PTRS(WorldModel)
+template<typename TimeType>
+struct AllAgents {
+	ONLY_MOVE(AllAgents);
+public:
+	SignalCollection<Boss<TimeType>, TimeType> bosses;
+	SignalCollection<Minion<TimeType>, TimeType> minions;
+	SignalCollection<Shot<TimeType>, TimeType> shots;
+	SignalCollection<Quip<TimeType>, TimeType> quips;
 
-	struct AllAgents
-	{
-		ONLY_MOVE(AllAgents);
-	public:
-		SignalCollection<Boss, RealTime> bosses;
-		SignalCollection<Minion, RealTime> minions;  
-		SignalCollection<Shot, RealTime> shots;
-		SignalCollection<Quip<RealTime>, RealTime> quips;
+	AllAgents() {}
 
-		AllAgents() {}
-
-		template <typename TimeType = TimePoint>
-		void forEach(std::function<void(Agent<>*)> f, TimeType now)
-		{
-			bosses.forEach(now, f );
-			minions.forEach(now,f);
-			shots.forEach(now, f);
-			quips.forEach(now, f);
-		}
-
+	void forEach(std::function<void(AgentPtr<TimeType>)> f, TimeType now) {
+		bosses.forEach(now, f );
+		minions.forEach(now,f);
+		shots.forEach(now, f);
+		quips.forEach(now, f);
+	}
 		
-		void reset(RealTime at)
-		{
-			bosses.reset(at);
-			minions.reset(at);
-			shots.reset(at);
-			quips.reset(at);
-		}
-	};
+	void reset(TimeType at) {
+		bosses.reset(at);
+		minions.reset(at);
+		shots.reset(at);
+		quips.reset(at);
+	}
+};
 
-	class WorldModel {
-	public:
-		WorldModel() {}
+template<typename TimeType>
+class WorldModel {
+	ONLY_MOVE(WorldModel);
+	AllAgents<TimeType> agents;
+public:
+	WorldModel() {}
 
-		QuipPtr createQuip(RealTime at, TrajectoryUniquePtr&& traj, std::string name); 
+	QuipP createQuip(const TimeType at, TrajectoryUniquePtr&& traj, std::string name);
 
-		void reset(RealTime resetToTime) {
-			agents.reset(resetToTime);
-		}
-		
-		AllAgents agents;
-	private:
-		ONLY_MOVE(WorldModel);
-	};
+	void reset(TimeType resetToTime) {
+		agents.reset(resetToTime);
+	}
 
-	
+	void forAllAgents(std::function<void(AgentP)> f, TimeType now) {
+		agents.forEach(f, now);
+	}
+};
+PTRS1(WorldModel, TimeType)
+
 }

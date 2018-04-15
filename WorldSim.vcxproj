@@ -154,9 +154,11 @@
     <ClInclude Include="include\Events.h" />
     <ClCompile Include="src\AIController.cpp" />
     <ClCompile Include="src\Events.cpp" />
+    <ClInclude Include="include\OutEvents.h" />
     <ClInclude Include="include\Quip.h" />
     <ClInclude Include="include\WorldModel.h" />
     <ClInclude Include="include\AgentControl.h" />
+    <ClCompile Include="src\OutEvents.cpp" />
     <ClCompile Include="src\Quip.cpp" />
     <ClCompile Include="src\SchedulerSpecialization.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)simulator\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
