@@ -12,8 +12,8 @@ public:
 
 private:
 	
-	//SchedulerPtr<Model, TimeType> SchedPtr;
-	//AgentPtr<TimeType> AgntPtr;
+	//SchedulerPtr<TimeType,Model> SchedPtr;
+	//AgentP AgntPtr;
 	
 };
 

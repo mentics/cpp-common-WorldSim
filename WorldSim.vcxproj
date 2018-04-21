@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Actions.h" />
     <ClInclude Include="include\AIController.h" />
     <ClInclude Include="include\Agent.h" />
     <ClInclude Include="include\AgentView.h" />

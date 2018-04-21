@@ -9,8 +9,7 @@ using namespace std::chrono_literals;
 
 namespace MenticsGame {
 
-TEST_CLASS(WorldSimTest)
-{
+TEST_CLASS(WorldSimTest) {
 public:
 	TEST_CLASS_INITIALIZE(BeforeClass) {
 		setupLog();
@@ -19,8 +18,6 @@ public:
 	TEST_METHOD(TestWorldSim) {
 		World w();
 	}
-
-	
 };
 
 }

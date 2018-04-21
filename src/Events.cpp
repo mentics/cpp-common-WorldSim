@@ -6,20 +6,20 @@
 namespace MenticsGame {
 
 template<typename TimeType>
-void EventCreateQuip<TimeType>::run(SchedulatorPtr<WorldModel<TimeType>, TimeType> sched, nn::nn<WorldModel<TimeType>*> model) {
+void EventCreateQuip<TimeType>::run(SchedulatorWP sched, WorldModelP model) {
 	sched->addOutEvent(nn::nn_make_unique<QuipCreated<TimeType>>(timeToRun,
 			model->createQuip(created, std::move(traj), name)));
 }
 
 template<typename TimeType>
-void CmdArrive<TimeType>::run(SchedulatorPtr<WorldModel<TimeType>, TimeType> sched, nn::nn<WorldModel<TimeType>*> model) {
+void CmdArrive<TimeType>::run(SchedulatorWP sched, WorldModelP model) {
 	// TODO: call agent set action and inside that method, set action and trajectory.
 	// TODO: Hopefully we'll get notified when target is destroyed so we can change action before we try to go back
 	agent->trajectory.add(TRAJ_CALC.arrive(timeToRun, nn::nn_addr(*agent->trajectory.get(timeToRun)), nn::nn_addr(*target->trajectory.get(timeToRun)), dist), timeToRun);
 }
 
 template<typename TimeType>
-void CmdAcc<TimeType>::run(SchedulatorPtr<WorldModel<TimeType>, TimeType> sched, nn::nn<WorldModel<TimeType>*> model) {
+void CmdAcc<TimeType>::run(SchedulatorWP sched, WorldModelP model) {
 	// TODO
 	const TimeType LONG_ENOUGH = 50000000; // TODO: how long?
 	//Agent* a = model->agent(agentId);

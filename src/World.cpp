@@ -1,8 +1,6 @@
 #include "stdafx.h"
-#include <gsl/gsl>
 #include "World.h"
 #include "AgentControl.h"
-//#include "Scheduler.cpp"
 #include "Agent.h"
 #include "TrajectoryCalculator.h"
 #include "Events.h"
@@ -22,7 +20,7 @@ void World::setTimeScale(double newTimeScale) {
 AgentIndex World::allAgentsData(gsl::span<AgentPosVelAcc> buffer) {
 	AgentIndex index = 0;
 	const RealTime at = timeProv.now();
-	model.forAllAgents([at, &buffer, &index](AgentPtr<RealTime> agent) {
+	model.forAllAgents([at, &buffer, &index](AgentPtr<RealTime,WorldModel<RealTime>> agent) {
 		agent->trajectory.get((double)at)->posVelAcc(at, nn::nn_addr(buffer[index].pva));      
 		index++;
 	}, at);
@@ -33,7 +31,7 @@ void World::createQuip(RealTime afterDuration, TrajectoryUniquePtr&& traj, std::
 	sched.schedule(afterDuration, uniquePtr<EventCreateQuip<RealTime>>(std::move(traj), name));
 }
 
-void World::takeControl(AgentPtr<TimePoint> a) {
+void World::takeControl(AgentPtr<RealTime,WorldModel<RealTime>> a) {
 	// TODO: if there is some automated controller for agent, remote it
 	// Otherwise, probably nothing to do
 }

@@ -1,14 +1,13 @@
 #pragma once
-
 #include "EventBases.h"
-#include "Quip.h"
+#include "WorldModel.h"
 
 namespace MenticsGame {
 
 template<typename TimeType>
 struct QuipCreated : public OutEvent<TimeType> {
-	QuipP quip;
-	QuipCreated(const TimeType occursAt, const QuipP q) : OutEvent(occursAt, EventQuipCreated), quip(q){}
+	QuipWP quip;
+	QuipCreated(const TimeType occursAt, const QuipWP q) : OutEvent(occursAt, EventQuipCreated), quip(q){}
 };
 
 }

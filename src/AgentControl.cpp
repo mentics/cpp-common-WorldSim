@@ -5,7 +5,7 @@
 namespace MenticsGame {
 
 template<typename TimeType>
-void AgentControl<TimeType>::arrive(const AgentP agent, const AgentP target, double distance) {
+void AgentControl<TimeType>::arrive(const AgentWP agent, const AgentWP target, double distance) {
 	sched->schedule(inputDelay, uniquePtr<CmdArrive>(agent, target, distance));
 }
 

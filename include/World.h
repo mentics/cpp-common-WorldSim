@@ -43,8 +43,8 @@ class World {
 	ONLY_MOVE(World);
 
 	RealTimeProvider timeProv;
-	SchedulerModel<WorldModel<RealTime>, RealTime> schedModel;
-	Scheduler<WorldModel<RealTime>, RealTime> sched;
+	SchedulerModel<RealTime, WorldModel<RealTime>> schedModel;
+	Scheduler<RealTime, WorldModel<RealTime>> sched;
 	WorldModel<RealTime> model;
 
 public:
@@ -58,7 +58,7 @@ public:
 
 	void createQuip(RealTime at, TrajectoryUniquePtr&& traj, std::string name);
 
-	void takeControl(AgentPtr<TimePoint> a);
+	void takeControl(AgentPtr<RealTime,WorldModel<RealTime>> a);
 
 	void consumeOutgoing(std::function<void(OutEventPtr<RealTime>)> handler, RealTime upToTime);
 };

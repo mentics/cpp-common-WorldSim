@@ -6,18 +6,23 @@
 
 namespace MenticsGame {
 
-template<typename TimeType>
+#define QuipWP QuipPtr<TimeType, WorldModel<TimeType>>
+#define AgentWP AgentPtr<TimeType,WorldModel<TimeType>>
+#define SchedulatorWP SchedulatorPtr<TimeType,WorldModel<TimeType>>
+
+
+template<typename TimeType, typename Model>
 struct AllAgents {
 	ONLY_MOVE(AllAgents);
 public:
-	SignalCollection<Boss<TimeType>, TimeType> bosses;
-	SignalCollection<Minion<TimeType>, TimeType> minions;
-	SignalCollection<Shot<TimeType>, TimeType> shots;
-	SignalCollection<Quip<TimeType>, TimeType> quips;
+	SignalCollection<Boss<TimeType,Model>, TimeType> bosses;
+	SignalCollection<Minion<TimeType,Model>, TimeType> minions;
+	SignalCollection<Shot<TimeType,Model>, TimeType> shots;
+	SignalCollection<Quip<TimeType,Model>, TimeType> quips;
 
 	AllAgents() {}
 
-	void forEach(std::function<void(AgentPtr<TimeType>)> f, TimeType now) {
+	void forEach(std::function<void(AgentP)> f, TimeType now) {
 		bosses.forEach(now, f);
 		minions.forEach(now, f);
 		shots.forEach(now, f);
@@ -34,12 +39,13 @@ public:
 
 template<typename TimeType>
 class WorldModel {
+	typedef WorldModel Model;
 	ONLY_MOVE(WorldModel);
-	AllAgents<TimeType> agents;
+	AllAgents<TimeType,WorldModel> agents;
 public:
 	WorldModel() {}
 
-	QuipP createQuip(const TimeType at, TrajectoryUniquePtr&& traj, std::string name);
+	QuipWP createQuip(const TimeType at, TrajectoryUniquePtr&& traj, std::string name);
 
 	void reset(TimeType resetToTime) {
 		agents.reset(resetToTime);
@@ -50,5 +56,7 @@ public:
 	}
 };
 PTRS1(WorldModel, TimeType)
+#define WorldModelP WorldModelPtr<TimeType>
+#define WorldModelUP WorldModelUniquePtr<TimeType>
 
 }

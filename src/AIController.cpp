@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "AIController.h"
 
-template<typename Model, typename TimeType>
-AIController<Model, TimeType>::AIController()
+template<typename TimeType, typename Model>
+AIController<TimeType,Model>::AIController()
 {
 
 }
 
-template<typename Model, typename TimeType>
-void AIController<Model, TimeType>::run()
+template<typename TimeType, typename Model>
+void AIController<TimeType,Model>::run()
 {
 	//AgentCtrlPtr->scheduleNext(this);
 }
