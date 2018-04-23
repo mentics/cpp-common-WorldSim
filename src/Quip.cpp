@@ -1,8 +1,7 @@
-#include "stdafx.h"
+﻿#include "stdafx-worldsim.h"
 #include "Quip.h"
-#include <chrono>
 
 namespace MenticsGame {
 
-	
+
 }

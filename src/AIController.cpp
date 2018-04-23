@@ -1,14 +1,12 @@
-#include "stdafx.h"
+﻿#include "stdafx-worldsim.h"
 #include "AIController.h"
 
 template<typename TimeType, typename Model>
-AIController<TimeType,Model>::AIController()
-{
+AIController<TimeType, Model>::AIController() {
 
 }
 
 template<typename TimeType, typename Model>
-void AIController<TimeType,Model>::run()
-{
-	//AgentCtrlPtr->scheduleNext(this);
+void AIController<TimeType, Model>::run() {
+    //AgentCtrlPtr->scheduleNext(this);
 }

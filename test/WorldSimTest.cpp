@@ -1,5 +1,4 @@
-#include "stdafx.h"
-
+﻿#include "stdafx-worldsimtest.h"
 #include "CppUnitTest.h"
 #include "MenticsCommonTest.h"
 #include "World.h"
@@ -11,13 +10,13 @@ namespace MenticsGame {
 
 TEST_CLASS(WorldSimTest) {
 public:
-	TEST_CLASS_INITIALIZE(BeforeClass) {
-		setupLog();
-	}
+    TEST_CLASS_INITIALIZE(BeforeClass) {
+        setupLog();
+    }
 
-	TEST_METHOD(TestWorldSim) {
-		World w();
-	}
+    TEST_METHOD(TestWorldSim) {
+        World w();
+    }
 };
 
 }
