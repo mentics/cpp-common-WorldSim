@@ -25,5 +25,6 @@ namespace MenticsGame {
 template WorldModel<RealTime>;
 template Scheduler<RealTime, WorldModel<RealTime>>;
 template EventCreateQuip<RealTime>;
+template BasicTrajectory<RealTime>;
 
 }
