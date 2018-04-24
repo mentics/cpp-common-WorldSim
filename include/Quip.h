@@ -23,7 +23,7 @@ public:
 	SignalValue<float, TimeType> energy;
 	SignalValue<float, TimeType> attention;
 
-	Quip(const AgentId id, TimeType createTime, TrajectoryUniquePtr&& trajectory,
+	Quip(const AgentId id, TimeType createTime, TrajectoryUniquePtr<TimeType>&& trajectory,
 			const float maxEnergy, const float energyRegenRate,
 			const float maxAttention, const float attentionRegenRate,
 			const std::string name, const TeamId team = 2)

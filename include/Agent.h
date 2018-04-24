@@ -35,7 +35,7 @@ public:
     const AgentId id;
     const TimeType createTime;
     SignalValue<uint64_t, TimeType> thoughtPeriod;
-    SignalUnique<Trajectory, TimeType> trajectory;
+    SignalUnique<Trajectory<TimeType>, TimeType> trajectory;
 
     // Represents which team the agent is on. Used to identify friendlies and enemies. 
     // Default value is 2 for enemy team.Value is 1 for single player's team.
@@ -47,7 +47,7 @@ public:
 
     Agent(Agent<TimeType, Model>&&) = default;
 
-    Agent(const AgentId id, const TimeType createTime, TrajectoryUniquePtr&& trajectory, TeamId team = 2)
+    Agent(const AgentId id, const TimeType createTime, TrajectoryUniquePtr<TimeType>&& trajectory, TeamId team = 2)
         : id(id), createTime(createTime), team(team), actions(),
         trajectory(std::move(trajectory)), thoughtPeriod(0), reactionTime(0), perceptionDelay(0) {
         // TODO: actions.push(uniquePtr<NoAction<TimeType>>(createTime);
@@ -87,7 +87,7 @@ PTRS2(Agent, TimeType, Model)
 template<typename TimeType, typename Model>
 class FullAgent : public Agent<TimeType, Model> {
 public:
-    FullAgent(const AgentId id, const TimeType createdTime, TrajectoryUniquePtr&& trajectory)
+    FullAgent(const AgentId id, const TimeType createdTime, TrajectoryUniquePtr<TimeType>&& trajectory)
         : Agent(id, createdTime, std::move(trajectory)) {}
 };
 
@@ -97,7 +97,7 @@ PTRS2(Boss, TimeType, Model)
 template<typename TimeType, typename Model>
 class Boss : public FullAgent<TimeType, Model> {
 public:
-    Boss(const AgentId id, const TimeType createdTime, TrajectoryUniquePtr&& trajectory) : FullAgent(id, createdTime, std::move(trajectory)) {}
+    Boss(const AgentId id, const TimeType createdTime, TrajectoryUniquePtr<TimeType>&& trajectory) : FullAgent(id, createdTime, std::move(trajectory)) {}
 
     static BossUP createDefault(const AgentId id) {
         return uniquePtr<Boss<TimeType, Model>>(id, makeTrajZero());

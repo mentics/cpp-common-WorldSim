@@ -42,7 +42,7 @@ public:
 
     void takeControl(AgentPtr<RealTime, WorldModel<RealTime>> a);
 
-    void createQuip(RealTime at, TrajectoryUniquePtr&& traj, std::string name);
+    void createQuip(RealTime at, TrajectoryUniquePtr<RealTime>&& traj, std::string name);
 };
 
 }

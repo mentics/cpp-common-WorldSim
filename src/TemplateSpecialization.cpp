@@ -6,6 +6,7 @@
 #include "Scheduler.cpp"
 #include "Events.cpp"
 #include "WorldModel.cpp"
+#include "Trajectory.cpp" 
 
 namespace MenticsGame {
 

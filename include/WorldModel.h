@@ -45,7 +45,7 @@ class WorldModel {
 public:
 	WorldModel() {}
 
-	QuipWP createQuip(const TimeType at, TrajectoryUniquePtr&& traj, std::string name);
+	QuipWP createQuip(const TimeType at, TrajectoryUniquePtr<TimeType>&& traj, std::string name);
 
 	void reset(TimeType resetToTime) {
 		agents.reset(resetToTime);
