@@ -39,7 +39,7 @@ AgentIndex World::allAgentsData(gsl::span<AgentPosVelAcc> buffer) {
     AgentIndex index = 0;
     const RealTime at = timeProv.now();
     model.forAllAgents([at, &buffer, &index](AgentPtr<RealTime, WorldModel<RealTime>> agent) {
-        agent->trajectory.get(Trajectory<>::toLocal(at))->posVelAcc(at, nn::nn_addr(buffer[index].pva));  
+        agent->trajectory.get(at)->posVelAcc(at, nn::nn_addr(buffer[index].pva));
         index++;
     }, at);
     return index;
