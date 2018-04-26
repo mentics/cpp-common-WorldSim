@@ -6,13 +6,11 @@
 #include "Scheduler.cpp"
 #include "Events.cpp"
 #include "WorldModel.cpp"
-#include "Trajectory.cpp" 
 
 namespace MenticsGame {
 
 template WorldModel<RealTime>;
 template Scheduler<RealTime, WorldModel<RealTime>>;
 template EventCreateQuip<RealTime>;
-template BasicTrajectory<RealTime>;
 
 }
