@@ -22,9 +22,9 @@ private:
 	// Apply this action to the provided agent
 	void apply(const TimeType applyTime, const AgentWP agent, const SchedulatorWP sched) const override {
 		TimeType perceptionTime = agent->perceptionDelay.get(applyTime);
-		agent->trajectory.add(TRAJ_CALC.arrive(applyTime,
-			agent->trajectory.get(perceptionTime),
-			target->trajectory.get(perceptionTime), distance),
+        agent->trajectory.add(TRAJ_CALC.arrive(applyTime,
+            agent->trajectory.get(perceptionTime),
+			target->trajectory.get(perceptionTime), distance, agent->trajectory.get(applyTime)),
 			applyTime);
 	}
 

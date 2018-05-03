@@ -8,7 +8,7 @@
 namespace MenticsGame {
 
 template<typename TimeType>
-struct EventCreateQuip : public Event<TimeType, WorldModel<TimeType>> {
+struct EventCreateQuip : public Event<TimeType, WorldModel<TimeType>>{
     TrajectoryUniquePtr<TimeType> traj;
     const std::string name;
 
@@ -17,6 +17,7 @@ public:
 
     void run(SchedulatorWP sched, WorldModelP model) override;
 };
+PTRS1(EventCreateQuip, TimeType)
 
 template<typename TimeType>
 struct CmdArrive : public Event<TimeType, WorldModel<TimeType>> {

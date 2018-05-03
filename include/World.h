@@ -26,10 +26,11 @@ class World {
 
     RealTimeProvider timeProv;
     SchedulerModel<RealTime, WorldModel<RealTime>> schedModel;
-    Scheduler<RealTime, WorldModel<RealTime>> sched;
+    
     WorldModel<RealTime> model;
 
 public:
+    Scheduler<RealTime, WorldModel<RealTime>> sched;
     World() : timeProv(), schedModel(), sched(nn::nn_addr(schedModel), nn::nn_addr(timeProv), nn::nn_addr(model)) {}
 
     void setTimeScale(double newTimeScale);
